@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Tutor">
+        <meta name="author" content="Augustin Pilard Zen">
+        <link href='../packages/core/main.css' rel='stylesheet' />
+        <link href='../packages/daygrid/main.css' rel='stylesheet' />
+        <link href='../packages/timegrid/main.css' rel='stylesheet' />
+        <script src='../packages/core/main.js'></script>
+        <script src='../packages/interaction/main.js'></script>
+        <script src='../packages/daygrid/main.js'></script>
+        <script src='../packages/timegrid/main.js'></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> <!-- Menu -->
+        <link rel="stylesheet" type="text/css" href="css/menu.css">
+        <link rel="stylesheet" type="text/css" href="css/recherche.css">
+        <script type="text/javascript" src="js/recherche.js"></script>
+        <title>Tutor</title>
+    </head>
+    <body>
+		<table style=" border: 1px solid black;">
+			<?php
+			$sth = $bdd->prepare("SELECT `name`,`place`,`date`,`shedule_start`,`schedule_stop` FROM `lecture`");
+			$sth->execute();
+			?>
+			<?php foreach($sth->fetchAll() as $row) : ?>
+			<tr style=" border: 1px solid black;">
+				<td style=" border: 1px solid black;"><?php echo $row['name']; ?></td>
+				<td style=" border: 1px solid black;"><?php echo $row['place']; ?></td>
+				<td style=" border: 1px solid black;"><?php echo $row['date']; ?></td>
+				<td style=" border: 1px solid black;"><?php echo $row['shedule_start']; ?></td>
+				<td style=" border: 1px solid black;"><?php echo $row['schedule_stop']; ?></td>
+			</tr>
+			<?php endforeach;?>
+		</table>
+        <!--<div id='calendar' class="calendrier"></div>-->
+    </body>
+</html>

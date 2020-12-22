@@ -1,0 +1,67 @@
+/* Menu */
+li {
+	list-style: none;
+}
+#active {
+	color: white;
+}
+.container-fluid{
+	padding: 5px 16px; 
+	margin: -1px;
+}
+navbar-header a{
+	color: white;
+}
+.navbar-nav > a {
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+}
+.navbar{
+	background-color: #343a40;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+	height: 60.5px;
+	border-radius: unset;
+}
+.navbar-brand {
+	padding: 10px;
+	padding-right: 18px; 
+}
+#text-color{
+	color: white;
+	letter-spacing: 0.1rem;
+}
+.navbar-nav > li > a {
+	color: #9a9da0;
+	font-size: initial;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.navbar-nav > li > a:hover {
+	color: rgba(255,255,255,0.75); 
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.navbar-brand img {
+	display: inline-block;
+	margin-right: 10px;
+	margin-top: -5px;
+	width: 36px;
+	height: 36px;
+}
+.navbar-nav{
+	padding: 0px; 
+}
+#e{
+	color: #009bc2;
+}
+.divider-vertical{
+	height: 20px;
+	margin: 0 9px;
+	border-left: 1px solid #878787;
+	margin-top: 15px;
+}
+/* CSS Document */
+

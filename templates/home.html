@@ -1,0 +1,35 @@
+{% extends "global.html" %}
+{% block insert %}
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/accueil.css">
+        <script>
+            function Hiddenmenu() {
+            var iframe = document.getElementById("iframe");
+            var menu = iframe.contentWindow.document.getElementsByClassName("navbar navbar-inverse")[0];
+            menu.style.display = "none";
+            var calendar = iframe.contentWindow.document.getElementsByClassName("calendrier")[0];
+            calendar.style.marginTop = "-60px";$
+            }
+        </script>
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Bienvenue !</h1>
+        <p class="lead">Sur cette plateforme vous pourrez gérer vos séances de tutorat et avoir des bonnes notes, merci ne nous remerciez pas !</p>
+    </div>
+    <div class="contenant">
+        <div>
+            <h2>Règles d'utilisation du site</h2>
+            <br>
+            <ul>
+                <li>- Pas plus de 5 étudiants par cours (sans compter le tuteur)</li>
+                <li>- Les séances peuvent être utilisé pour le LEP</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

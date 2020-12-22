@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Tutor">
+        <meta name="author" content="Augustin Pilard Zen">
+        <link rel="stylesheet" type="text/css" href="{% static "css/menu.css" %}">
+    	<link rel="icon" href="{% static "images/favicon.ico" %}" type="image/x-icon"/>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <title>Tutor</title>
+        {% block insert %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-header">
+                        <a class="navbar-brand" id="active" href="/home"><img src="{% static "/images/logo.png" %}" alt="logo_esaip"></a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/home" id="text-color">Tutor'<b id="e">e</b>saip</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="/profil">Profil</a></li>
+                        <li><a href="/add">Ajout Cours</a></li>
+                        <li><a href="/search">Recherche</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+    </body>
+</html>

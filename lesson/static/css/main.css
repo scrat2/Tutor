@@ -1,0 +1,53 @@
+body{
+	background-color: #f8f9fa;
+	margin-top: 60px;
+    overflow: hidden;
+}
+
+/* Page de connexion */
+
+
+#loginbox{
+margin-top:25%;
+}
+.panel-info {
+background-color: #e9ecef;
+margin-bottom: 0;
+padding-bottom: 70px;
+border:none;
+}
+#loginbox > div > div { /*panel body*/
+padding-top:30px;
+}
+#login-alert{
+display:none;
+}
+#loginform > div{
+margin: 12.5px 0 12.5px;
+}
+
+
+/* Page d'accueil */
+
+.jumbotron {
+	margin-bottom: 0px;
+}
+.gauche {
+	float:left;
+	width:60%;
+	background-color: beige;
+	height: inherit;
+}
+.droite {
+	margin-left:60%; 
+	height: inherit;
+	padding-top: 1px;
+}
+.contenant{
+	text-align: center;
+	height: 618px; 
+}
+
+
+
+
