@@ -2,7 +2,7 @@ import ldap
 from django_auth_ldap.backend import LDAPBackend
 from django.shortcuts import render, redirect
 from lesson.forms import ConnexionForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
@@ -64,3 +64,8 @@ def search(request):
 
     else:
         return redirect('/')
+
+
+def view_logout(request):
+    logout(request)
+    return redirect('/')
