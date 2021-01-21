@@ -97,7 +97,7 @@ input::-webkit-input-placeholder {
 	color: white;
 }
 input:hover{
-	background-color: rgb(55, 152, 177,0.2);
+	background-color: rgb(55, 152, 177);
 }
 input:focus{
 	background-color: white;

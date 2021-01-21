@@ -10,3 +10,6 @@ class Lessons(models.Model):
     sujet = models.CharField(max_length=100, null=False)
     classe = models.CharField(max_length=20, null=False)
     teacher = models.CharField(max_length=20, null=False)
+
+class Users(models.Model):
+    pass
