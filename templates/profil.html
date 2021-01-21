@@ -1,1 +1,34 @@
 {% extends "global.html" %}
+{% load static %}
+
+{% block insert %}
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+        <h1 class="display-4">Mon profil</h1>
+        <hr class="my-4">
+
+        <div class="container text-left">
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.promo.id_for_label }}">Promo: </label>
+                    {{ form.promo }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.campus.id_for_label }}">Campus: </label>
+                    {{ form.campus }}
+                </div>
+                <div id="divbtn">
+                    <button type="submit"  id="submit" name="submit">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

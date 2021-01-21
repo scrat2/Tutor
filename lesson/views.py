@@ -1,11 +1,13 @@
 import ldap
 from django_auth_ldap.backend import LDAPBackend
 from django.shortcuts import render, redirect
-from lesson.forms import ConnexionForm
+from lesson.forms import ConnexionForm, ProfileForm
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
+from lesson.models import Profiles
 
 
 def connexion(request):
@@ -24,8 +26,14 @@ def connexion(request):
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
+                # Check if IDs are good
                 user = authenticate(username=username, password=password)
                 if user is not None:
+                    # If good log user and check the profil create it if needed
+                    profile = Profiles.objects.filter(user=user)
+                    if not profile.exists():
+                        profile = Profiles(user=user)
+                        profile.save()
                     login(request, user)
                     return redirect('/home')
                 else:
@@ -36,7 +44,26 @@ def connexion(request):
 
 def profil(request):
     if request.user.is_authenticated:
-        return render(request, 'profil.html')
+        form = ProfileForm()
+        context = {
+            'form': form
+        }
+        if request.method == 'POST':
+            # Get data from the form
+            form = ProfileForm(request.POST)
+            # Clean data to avoid injection
+            if form.is_valid():
+                promo = form.cleaned_data['promo']
+                campus = form.cleaned_data['campus']
+                user = User.objects.get(username=request.user.username)
+                profile = Profiles.objects.get(user_id=user.id)
+                if promo != "":
+                    profile.promo = promo
+                if campus != "":
+                    profile.campus = campus
+                profile.save()
+
+        return render(request, 'profil.html', context)
 
     else:
         return redirect('/')

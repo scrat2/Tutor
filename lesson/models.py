@@ -9,7 +9,16 @@ class Lessons(models.Model):
     date_fin = models.DateField(null=False)
     sujet = models.CharField(max_length=100, null=False)
     classe = models.CharField(max_length=20, null=False)
-    teacher = models.CharField(max_length=20, null=False)
 
-class Users(models.Model):
-    pass
+
+class Profiles(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    campus = models.CharField(max_length=20, null=True)
+    promo = models.CharField(max_length=20, null=True)
+    nbr_heure = models.IntegerField(null=False, default=0)
+
+
+class Groups(models.Model):
+    lessonID = models.ForeignKey(Lessons, on_delete=models.CASCADE)
+    profileID = models.ForeignKey(Profiles, on_delete=models.CASCADE)
+    teacher = models.BooleanField(default=False)
