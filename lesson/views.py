@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
-from lesson.models import Profiles
+from lesson.models import Profiles, Lessons, Groups
 
 
 def connexion(request):
@@ -70,7 +70,20 @@ def profil(request):
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'home.html')
+        user = User.objects.get(username=request.user.username)
+        profile = Profiles.objects.get(user_id=user.id)
+        groups = Groups.objects.filter(profileID=profile.id)
+        lessons = []
+        for group in groups:
+            lesson = group.lessonID
+            print("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date, lesson.begin,
+                                                                      lesson.end))
+            lessons.append("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date, lesson.begin,
+                                                                               lesson.end))
+        context = {
+            'messages': lessons
+        }
+        return render(request, 'home.html', context)
 
     else:
         return redirect('/')
@@ -78,12 +91,28 @@ def home(request):
 
 def add(request):
     if request.user.is_authenticated:
-        userform = ProfileForm()
         lessonform = LessonForm()
         context = {
-            'userform': userform,
             'lessonform': lessonform
         }
+        if request.method == 'POST':
+            form = LessonForm(request.POST)
+            if form.is_valid():
+                name = form.cleaned_data['name']
+                room = form.cleaned_data['room']
+                date = form.cleaned_data['date']
+                begin = form.cleaned_data['begin']
+                end = form.cleaned_data['end']
+                promo = form.cleaned_data['promo']
+                campus = form.cleaned_data['campus']
+                subject = form.cleaned_data['subject']
+                lesson = Lessons(nom=name, date=date, sujet=subject, promo=promo, begin=begin, campus=campus, end=end,
+                                 salle=room)
+                lesson.save()
+                user = User.objects.get(username=request.user.username)
+                profile = Profiles.objects.get(user_id=user.id)
+                group = Groups(profileID=profile, lessonID=lesson, teacher=True)
+                group.save()
         return render(request, 'add.html', context)
 
     else:

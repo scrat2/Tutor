@@ -89,3 +89,17 @@ class LessonForm(forms.Form):
         widget=TimeInput,
         required=True
     )
+
+    promo = forms.ChoiceField(
+        choices=(("ING1", u"ING1"), ("ING2", u"ING2"), ("IR3", u"IR3"), ("IR4", u"IR4"), ("IR5", u"IR5"),
+                 ("SEP3", u"SEP3"), ("SEP4", u"SEP4"), ("SEP5", u"SEP5"), ("IRA3", u"IRA3"), ("IRA4", u"IRA4"),
+                 ("IRA5", u"IRA5"), ("SEPA3", u"SEPA3"), ("SEPA4", u"SEPA4"), ("SEPA5", u"SEPA5"),
+                 (None, u"Promo")),
+        required=True
+    )
+
+    campus = forms.ChoiceField(
+        choices=(("ANGERS", u"ANGERS"), ("AIX", u"AIX"),
+                 (None, u"Campus")),
+        required=True
+    )

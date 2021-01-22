@@ -32,5 +32,13 @@
                 <li>- Les séances peuvent être utilisé pour le LEP</li>
             </ul>
         </div>
+        {% if messages %}
+            <div>
+                <h2>Vos cours</h2>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
