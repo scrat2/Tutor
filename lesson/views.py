@@ -1,7 +1,5 @@
-import ldap
-from django_auth_ldap.backend import LDAPBackend
 from django.shortcuts import render, redirect
-from lesson.forms import ConnexionForm, ProfileForm
+from lesson.forms import ConnexionForm, ProfileForm, LessonForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -48,6 +46,9 @@ def profil(request):
         context = {
             'form': form
         }
+        user = User.objects.get(username=request.user.username)
+        profile = Profiles.objects.get(user_id=user.id)
+        context['nbr_heure'] = profile.nbr_heure
         if request.method == 'POST':
             # Get data from the form
             form = ProfileForm(request.POST)
@@ -55,8 +56,6 @@ def profil(request):
             if form.is_valid():
                 promo = form.cleaned_data['promo']
                 campus = form.cleaned_data['campus']
-                user = User.objects.get(username=request.user.username)
-                profile = Profiles.objects.get(user_id=user.id)
                 if promo != "":
                     profile.promo = promo
                 if campus != "":
@@ -79,7 +78,13 @@ def home(request):
 
 def add(request):
     if request.user.is_authenticated:
-        return render(request, 'add.html')
+        userform = ProfileForm()
+        lessonform = LessonForm()
+        context = {
+            'userform': userform,
+            'lessonform': lessonform
+        }
+        return render(request, 'add.html', context)
 
     else:
         return redirect('/')

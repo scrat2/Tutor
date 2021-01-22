@@ -13,61 +13,6 @@ list-type-ulli {
   padding: 0; 
 }
 
-/* Montserrat-300 - latin */
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 300;
-  src: url("../fonts/montserrat/Montserrat-Light.ttf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/montserrat/Montserrat-Regular.ttf");
-  /* IE9 Compat Modes */ 
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 400;
-  src: url("../fonts/montserrat/Montserrat-Italic.ttf");
-  /* IE9 Compat Modes */ }
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 500;
-  src: url("../fonts/montserrat/Montserrat-Medium.ttf");
-  /* IE9 Compat Modes */ 
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 600;
-  src: url("../fonts/montserrat/Montserrat-SemiBold.ttf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/montserrat/Montserrat-Bold.ttf");
-  /* IE9 Compat Modes */ 
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 700;
-  src: url("../fonts/montserrat/Montserrat-BoldItalic.ttf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: italic;
-  font-weight: 900;
-  src: url("../fonts/montserrat/montserrat-v12-latin-900.ttf"), url("../fonts/montserrat/montserrat-v12-latin-900.eot") format("embedded-opentype"), url("../fonts/montserrat/montserrat-v12-latin-900.svg") format("woff2"), url("../fonts/montserrat/montserrat-v12-latin-900.woff") format("woff"), url("../fonts/montserrat/montserrat-v12-latin-900.woff2") format("truetype");
-}
 
 .flex {
   display: flex;
@@ -93,8 +38,6 @@ h2 {
   padding: 0;
   font-weight: 900;
   color: #222;
-  font-family: 'Montserrat';
-  font-size: 24px;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 40px; }
@@ -108,7 +51,6 @@ body {
   line-height: 1.8;
   color: #222;
   font-weight: 400;
-  font-family: 'Montserrat';
   overflow: hidden;
   background: -webkit-linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
   background: -moz-linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);

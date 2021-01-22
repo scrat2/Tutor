@@ -1,8 +1,49 @@
 {% extends "global.html" %}
 {% load static %}
 {% block insert %}
-        <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-        <script src="{% static "js/main.js" %}"></script>
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+    <!--<link rel="stylesheet" type="text/css" href="{% static "css/inscription.css" %}">-->
+    <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
 {% endblock %}
-{% block container %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h2 class="form-title">Création d'un cours</h2>
+        <hr class="my-4">
+
+        <div class="container text-left">
+            <p>Lorsque vous enregistrez un cours vous êtes automatiquement désigné comme responsable.</p>
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ lessonform.name }}
+                    {{ lessonform.room }}
+                </div>
+                <div class="form-group">
+                    {{ lessonform.date }}
+                </div>
+                <div class="form-group">
+                    {{ lessonform.begin }}
+                </div>
+                <div class="form-group">
+                    {{ lessonform.end }}
+                </div>
+                <div class="form-group">
+                    {{ userform.promo }}
+                </div>
+                <div class="form-group">
+                    {{ userform.campus }}
+                </div>
+
+                <div class="form-group">
+                    {{ lessonform.subject }}
+                </div>
+
+                <div id="divbtn">
+                    <button type="submit"  id="submit" name="submit">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
