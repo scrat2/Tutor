@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from lesson.forms import ConnexionForm, ProfileForm, LessonForm
+from lesson.forms import ConnexionForm, ProfileForm, LessonForm, SearchForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -76,8 +76,6 @@ def home(request):
         lessons = []
         for group in groups:
             lesson = group.lessonID
-            print("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date, lesson.begin,
-                                                                      lesson.end))
             lessons.append("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date, lesson.begin,
                                                                                lesson.end))
         context = {
@@ -121,7 +119,29 @@ def add(request):
 
 def search(request):
     if request.user.is_authenticated:
-        return render(request, 'search.html')
+        searchform = SearchForm()
+        context = {
+            'searchform': searchform
+        }
+        if request.method == 'POST':
+            form = SearchForm(request.POST)
+            if form.is_valid():
+                name = form.cleaned_data['name']
+                date = form.cleaned_data['date']
+                promo = form.cleaned_data['promo']
+                campus = form.cleaned_data['campus']
+                finds = Lessons.objects.filter()
+                if name != "":
+                    finds = finds.filter(nom=name)
+                if date is not None:
+                    finds = finds.filter(date=date)
+                if promo != "":
+                    finds = finds.filter(promo=promo)
+                if campus != "":
+                    finds = finds.filter(campus=campus)
+                context['lessons'] = finds
+
+        return render(request, 'search.html', context)
 
     else:
         return redirect('/')
