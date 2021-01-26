@@ -145,7 +145,6 @@ AUTH_LDAP_USER_ATTR_MAP = {
 # Set the type of user with LDAP group
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-#    'is_active': 'cn="Utilisateurs du domaine",cn=Users,dc=esaip,dc=test',
     'is_staff': 'cn=teachers,ou=Angers,dc=esaip,dc=test',
     'is_superuser': 'cn=Administrateurs,cn=Builtin,dc=esaip,dc=test',
 }
@@ -177,9 +176,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 

@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from lesson.forms import ConnexionForm, ProfileForm, LessonForm, SearchForm
 from django.contrib.auth.models import User
@@ -74,8 +75,9 @@ def home(request):
         lessons = []
         for group in groups:
             lesson = group.lessonID
-            lessons.append("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date, lesson.begin,
-                                                                               lesson.end))
+            if lesson.date >= datetime.date.today():
+                lessons.append("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date,
+                                                                                   lesson.begin, lesson.end))
         context = {
             'messages': lessons
         }
@@ -102,13 +104,18 @@ def add(request):
                 promo = form.cleaned_data['promo']
                 campus = form.cleaned_data['campus']
                 subject = form.cleaned_data['subject']
-                lesson = Lessons(nom=name, date=date, sujet=subject, promo=promo, begin=begin, campus=campus, end=end,
-                                 salle=room)
-                lesson.save()
-                user = User.objects.get(username=request.user.username)
-                profile = Profiles.objects.get(user_id=user.id)
-                group = Groups(profileID=profile, lessonID=lesson, teacher=True)
-                group.save()
+                if date >= datetime.date.today() and begin < end:
+                    lesson = Lessons(nom=name, date=date, sujet=subject, promo=promo, begin=begin, campus=campus,
+                                     end=end, salle=room)
+                    lesson.save()
+                    user = User.objects.get(username=request.user.username)
+                    profile = Profiles.objects.get(user_id=user.id)
+                    group = Groups(profileID=profile, lessonID=lesson, teacher=True)
+                    group.save()
+                    context['result'] = "Ce cours a bien été enregistré"
+                else:
+                    context['result'] = "Veuillez entrer des informations cohérentes"
+
         return render(request, 'add.html', context)
 
     else:
@@ -128,16 +135,22 @@ def search(request):
                 date = form.cleaned_data['date']
                 promo = form.cleaned_data['promo']
                 campus = form.cleaned_data['campus']
-                finds = Lessons.objects.all()
+                finds = Lessons.objects.filter(date__gte=datetime.date.today())
+                if date is not None:
+                    if date < datetime.date.today():
+                        finds = Lessons.objects.filter(date=date)
+                    else:
+                        finds = finds.filter(date=date)
                 if name != "":
                     finds = finds.filter(nom=name)
-                if date is not None:
-                    finds = finds.filter(date=date)
                 if promo != "":
                     finds = finds.filter(promo=promo)
                 if campus != "":
                     finds = finds.filter(campus=campus)
-                context['lessons'] = finds
+                groups = []
+                for lesson in finds:
+                    groups.append(Groups.objects.get(lessonID=lesson, teacher=True))
+                context['lessons'] = groups
 
         return render(request, 'search.html', context)
 
@@ -159,7 +172,6 @@ def subscribe(request, lesson_id):
             already = False
             for person in group:
                 if person.profileID == profile:
-                    print("déjà inscrit")
                     already = True
                     context = {
                         'already': True

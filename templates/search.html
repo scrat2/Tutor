@@ -30,12 +30,14 @@
             {% if lessons %}
             <div>
                 <h2 class="text-center">Cours trouvé</h2>
+
                 {% for lesson in lessons %}
                     <div class="jumbotron">
                         <hr class="my-4">
-                        <p>{{ lesson.nom }}</p>
-                        <p>{{ lesson.sujet }}</p>
-                        <p>Ce cours aura lieu le {{ lesson.date }} de {{ lesson.begin }} à {{ lesson.end }}</p>
+                        <p>nom : {{ lesson.lessonID.nom }}</p>
+                        <p>description : {{ lesson.lessonID.sujet }}</p>
+                        <p>Ce cours aura lieu le {{ lesson.lessonID.date }} de {{ lesson.lessonID.begin }} à {{ lesson.lessonID.end }}</p>
+                        <p>teacher = {{ lesson.profileID.user.username }}</p>
                         <a href="/subscribe/{{ lesson.id }}">subscribe</a>
                         <hr class="my-4">
                     </div>
