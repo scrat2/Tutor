@@ -1,0 +1,20 @@
+{% extends "global.html" %}
+{% load static %}
+
+{% block insert %}
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
+{% endblock %}
+
+{% block content %}
+    {% if already %}
+        <p>Vous êtes déjà inscrit.</p>
+    {% elif disponible %}
+        <p>Vous êtes maintenant inscrit à ce cours.</p>
+    {% else %}
+        <p>Désolé ce cours est déjà complet.</p>
+    {% endif %}
+{% endblock %}

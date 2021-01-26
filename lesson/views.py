@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect
 from lesson.forms import ConnexionForm, ProfileForm, LessonForm, SearchForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
-
-# Create your views here.
 from lesson.models import Profiles, Lessons, Groups
 
 
+# Create your views here.
 def connexion(request):
     if request.user.is_authenticated:
         return redirect('/home')
@@ -130,7 +128,7 @@ def search(request):
                 date = form.cleaned_data['date']
                 promo = form.cleaned_data['promo']
                 campus = form.cleaned_data['campus']
-                finds = Lessons.objects.filter()
+                finds = Lessons.objects.all()
                 if name != "":
                     finds = finds.filter(nom=name)
                 if date is not None:
@@ -142,6 +140,39 @@ def search(request):
                 context['lessons'] = finds
 
         return render(request, 'search.html', context)
+
+    else:
+        return redirect('/')
+
+
+def subscribe(request, lesson_id):
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user.username)
+        profile = Profiles.objects.get(user_id=user.id)
+        lesson = Lessons.objects.get(id=lesson_id)
+        group = Groups.objects.filter(lessonID=lesson)
+        if len(group) > 5:
+            context = {
+                'disponible': False
+            }
+        else:
+            already = False
+            for person in group:
+                if person.profileID == profile:
+                    print("déjà inscrit")
+                    already = True
+                    context = {
+                        'already': True
+                    }
+
+            if not already:
+                context = {
+                    'disponible': True
+                }
+                subscriber = Groups(lessonID=lesson, profileID=profile)
+                subscriber.save()
+
+        return render(request, 'subscribe.html', context)
 
     else:
         return redirect('/')

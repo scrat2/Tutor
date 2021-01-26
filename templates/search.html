@@ -36,6 +36,7 @@
                         <p>{{ lesson.nom }}</p>
                         <p>{{ lesson.sujet }}</p>
                         <p>Ce cours aura lieu le {{ lesson.date }} de {{ lesson.begin }} à {{ lesson.end }}</p>
+                        <a href="/subscribe/{{ lesson.id }}">subscribe</a>
                         <hr class="my-4">
                     </div>
                 {% endfor %}
