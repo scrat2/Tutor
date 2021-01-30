@@ -12,5 +12,6 @@ urlpatterns = [
     path('add/', views.add),
     path('search/', views.search),
     path('logout/', views.view_logout),
+    path('load_search/', views.load_search),
     re_path(r'^subscribe/(?P<lesson_id>[0-9]+)/$', views.subscribe),
 ]

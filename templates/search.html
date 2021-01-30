@@ -2,11 +2,115 @@
 {% load static %}
 
 {% block insert %}
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/menu.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/recherche.css"%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+	<script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+
+    <script>
+
+  $(document).ready(function() {
+   var calendar = $('#calendar').fullCalendar({
+    editable:false,
+    header:
+	   {
+		 left:'prev,next today',
+		 center:'title',
+		 right:'month,agendaWeek,agendaDay'
+    	},
+	   events: "/load_search/",
+		eventRender:function(event, element)
+	   {
+		   element.find('.fc-title').append("<br/><b>Tuteur: </b><br/><b>Salle: </b>" + event.title,"<br/><b>Description: </b>" + event.description);
+    	},
+	   selectable:true,
+       selectHelper:true,
+      select: function(start, end, allDay)
+    {
+/*     var title = prompt("Enter Event Title");
+     if(title)
+     {
+      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+      $.ajax({
+       url:"insert.php",
+       type:"POST",
+       data:{title:title, start:start, end:end},
+       success:function()
+       {
+        calendar.fullCalendar('refetchEvents');
+        alert("Added Successfully");
+       }
+      })
+     }*/
+    },
+
+    eventResize:function(event)
+    {
+/*     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"update.php",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function(){
+       calendar.fullCalendar('refetchEvents');
+       alert('Event Update');
+      }
+     })*/
+    },
+
+    eventDrop:function(event)
+    {
+/*     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"update.php",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function()
+      {
+       calendar.fullCalendar('refetchEvents');
+       alert("Event Updated");
+      }
+     });*/
+    },
+
+    eventClick:function(event)
+    {
+     if(confirm("Voulez vous vous inscrire ?"))
+     {
+      var id = event.id;
+      $.ajax({
+       url:"/subscribe/"+ event.id,
+       type:"GET",
+       success:function()
+       {
+        calendar.fullCalendar('refetchEvents');
+        alert("Vous etes inscrit");
+       }
+      })
+     }
+    },
+   });
+  });
+
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -45,5 +149,10 @@
             </div>
         {% endif %}
         </div>
+        <h2 align="center">Prochaines séances</h2>
+  <br />
+  <div class="container">
+   <div id="calendar"></div>
+  </div>
     </div>
 {% endblock %}

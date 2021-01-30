@@ -1,4 +1,8 @@
 import datetime
+import json
+from time import strftime
+
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from lesson.forms import ConnexionForm, ProfileForm, LessonForm, SearchForm
 from django.contrib.auth.models import User
@@ -242,3 +246,21 @@ def subscribe(request, lesson_id):
 def view_logout(request):
     logout(request)
     return redirect('/')
+
+
+def load_search(request):
+    finds = Lessons.objects.all()
+    data = []
+    for lesson in finds:
+        x = {
+            "title": lesson.nom,
+            "description": lesson.sujet,
+            "start": lesson.date.strftime("%Y/%m/%d"),
+            "end": lesson.date.strftime("%Y/%m/%d"),
+            "salle": lesson.salle,
+            "id": lesson.id
+        }
+        data.append(x)
+    json_data = json.dumps(data)
+
+    return HttpResponse(json.dumps(data))
