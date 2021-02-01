@@ -1,50 +1,67 @@
+<!DOCTYPE html>
 {% extends "global.html" %}
 {% load static %}
-{% block insert %}
-    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-    <script src="{% static "js/main.js" %}"></script>
-    <!--<link rel="stylesheet" type="text/css" href="{% static "css/inscription.css" %}">-->
-    <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
+{% block include %}
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/menu.css'%}"/>
 {% endblock %}
-
-{% block content %}
-    <div class="jumbotron text-center">
-        <h2 class="form-title">Création d'un cours</h2>
-        <hr class="my-4">
-
-        <div class="container text-left">
-            <p>Lorsque vous enregistrez un cours vous êtes automatiquement désigné comme responsable.</p>
-            <form action="#" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ lessonform.name }}
-                    {{ lessonform.room }}
-                </div>
-                <div class="form-group">
-                    {{ lessonform.date }}
-                </div>
-                <div class="form-group">
-                    {{ lessonform.begin }}
-                </div>
-                <div class="form-group">
-                    {{ lessonform.end }}
-                </div>
-                <div class="form-group">
-                    {{ lessonform.promo }}
-                </div>
-                <div class="form-group">
-                    {{ lessonform.campus }}
-                </div>
-
-                <div class="form-group">
-                    {{ lessonform.subject }}
-                </div>
-
-                <div id="divbtn">
-                    <button type="submit"  id="submit" name="submit">Enregistrer</button>
-                </div>
-            </form>
-        </div>
+{% block menu %}
+		<a href="/add" id="active">Ajout Cours</a>
+        <a href="/search">Recherche</a>
+		<a href="/profil" class="profil">Profil</a>
+{% endblock %}
+{% block content %}						
+		<div class="main">
+				<section class="signup">
+					<div class="container">
+						<div class="signup-content">
+							<form action="#" method="post" id="signup-form" class="signup-form">
+								<h2 class="form-title">Création d'un cours</h2>
+								<h3>Vous serez responsable de ce cours !</h3>
+								{% csrf_token %}
+								<div class="form-group flex">
+									{{ lessonform.name }}
+									{{ lessonform.room }}
+								</div>
+								<div class="form-group flex">
+									<div class="classe_select">
+										{{ lessonform.date }}
+									</div>
+								</div>
+								<div class="form-group flex">
+									<div class="classe_select">
+										{{ lessonform.begin }}
+									</div>
+									<div class="classe_select">
+										{{ lessonform.end }}
+									</div>
+								</div>
+								<div class="form-group flex">
+									<div class="classe_select">
+										{{ lessonform.promo }}
+									</div>
+								</div>
+								<div class="form-group flex">
+									<div class="classe_select">
+										{{ lessonform.campus }}
+									</div>
+								</div>
+								<div class="form-group flex">
+									<div class="classe_select">
+										{{ lessonform.subject }}
+									</div>
+								</div>
+								<div id="divbtn">
+									<button type="submit"  id="submit" class="form-submit" name="submit">Enregistrer</button>
+								</div>
+							</form>
+						</div>
+					</div>
+			</section>
+		</div>
+	<div>
         {% if result %}
             <p>{{ result }}</p>
         {% endif %}

@@ -1,45 +1,49 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Tutor">
         <meta name="author" content="Augustin Pilard Zen">
-        <link rel="stylesheet" type="text/css" href="{% static "css/menu.css" %}">
-    	<link rel="icon" href="{% static "images/favicon.ico" %}" type="image/x-icon"/>
+		<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"/>
+   		<!-- Include CSS	-->
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
+		<!-- Include JS	-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		{% block include %}{% endblock %}
         <title>Tutor</title>
-        {% block insert %}{% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="navbar-header">
-                        <a class="navbar-brand" id="active" href="/home"><img src="{% static "/images/logo.png" %}" alt="logo_esaip"></a>
-                    </div>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/home" id="text-color">Tutor'<b id="e">e</b>saip</a></li>
-                        <li class="divider-vertical"></li>
-                        <li><a href="/profil">Profil</a></li>
-                        <li><a href="/add">Ajout Cours</a></li>
-                        <li><a href="/search">Recherche</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/logout"> Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+		<div class="topnav" id="myTopnav">
+				<a id="img_nav" href="/home">
+					<img src="{% static '/images/logo.png' %}" alt="logo_esaip">Tutor'<b id="e">e</b>saip
+				</a>
+				<a id="divider-vertical"></a>
+				{% block menu %}{% endblock %}
+			    <a href="/logout" id="logout">Déconnexion</a>
+			
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+					<i class="fa fa-bars"></i>
+		  		</a>
+		</div>
+		<script>
+		function myFunction() {
+		  var x = document.getElementById("myTopnav");
+		  if (x.className === "topnav") {
+			x.className += " responsive";
+		  } else {
+			x.className = "topnav";
+		  }
+		}
+		</script>
+		
         {% block content %}{% endblock %}
     </body>
 </html>

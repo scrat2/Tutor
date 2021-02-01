@@ -11,7 +11,7 @@ class Lessons(models.Model):
     sujet = models.CharField(max_length=200, null=False)
     promo = models.CharField(max_length=20, null=False)
     campus = models.CharField(max_length=20, null=False)
-    salle = models.CharField(max_length=20, null=False)
+    salle = models.CharField(max_length=5, null=False)
 
 
 class Profiles(models.Model):

@@ -58,7 +58,7 @@ class LessonForm(forms.Form):
     name = forms.CharField(
         label='Name',
         widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Nom du cours'}),
-        max_length=30,
+        max_length=20,
         required=True
     )
 
@@ -73,7 +73,7 @@ class LessonForm(forms.Form):
     room = forms.CharField(
         label='Room',
         widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Lieu du cours'}),
-        max_length=30,
+        max_length=20,
         required=True
     )
 

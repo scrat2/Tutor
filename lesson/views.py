@@ -1,13 +1,18 @@
 import datetime
 import json
-from time import strftime
-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from lesson.forms import ConnexionForm, ProfileForm, LessonForm, SearchForm
+from lesson.forms import ConnexionForm, ProfileForm, LessonForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from lesson.models import Profiles, Lessons, Groups
+
+
+# Other function
+def clear_data(data):
+    data = data.replace("<", "")
+    data = data.replace(">", "")
+    return data
 
 
 # Create your views here.
@@ -83,25 +88,7 @@ def profil(request):
 
 def home(request):
     if request.user.is_authenticated:
-
-        # Get the current user with the corresponding profile and user's groups
-        user = User.objects.get(username=request.user.username)
-        profile = Profiles.objects.get(user_id=user.id)
-        groups = Groups.objects.filter(profileID=profile.id)
-
-        # Create list to send data
-        lessons = []
-        for group in groups:
-            lesson = group.lessonID
-            if lesson.date >= datetime.date.today():
-                lessons.append("Vous avez un cours de {}. Le {} de {} à {}".format(lesson.nom, lesson.date,
-                                                                                   lesson.begin, lesson.end))
-        # Add the list in context variable
-        context = {
-            'messages': lessons
-        }
-        return render(request, 'home.html', context)
-
+        return render(request, 'home.html')
     else:
         return redirect('/')
 
@@ -129,6 +116,14 @@ def add(request):
                 campus = form.cleaned_data['campus']
                 subject = form.cleaned_data['subject']
 
+                # clear xss
+                name = clear_data(name)
+                room = clear_data(room)
+                promo = clear_data(promo)
+                campus = clear_data(campus)
+                subject = clear_data(subject)
+                print(name + room + subject)
+
                 # Check logic of entries before to save in database
                 if date >= datetime.date.today() and begin < end:
                     lesson = Lessons(nom=name, date=date, sujet=subject, promo=promo, begin=begin, campus=campus,
@@ -154,50 +149,7 @@ def add(request):
 
 def search(request):
     if request.user.is_authenticated:
-
-        # Get the form from forms.py and add it to the context to send it to the template.
-        searchform = SearchForm()
-        context = {
-            'searchform': searchform
-        }
-
-        if request.method == 'POST':
-            # Get data from the form
-            form = SearchForm(request.POST)
-
-            # Clean data to avoid injection
-            if form.is_valid():
-                name = form.cleaned_data['name']
-                date = form.cleaned_data['date']
-                promo = form.cleaned_data['promo']
-                campus = form.cleaned_data['campus']
-
-                # Get every lesson since the current day
-                finds = Lessons.objects.filter(date__gte=datetime.date.today())
-
-                # If the date entered is before the current day do the request again
-                if date is not None:
-                    if date < datetime.date.today():
-                        finds = Lessons.objects.filter(date=date)
-                    else:
-                        finds = finds.filter(date=date)
-
-                # Apply others filter if entered
-                if name != "":
-                    finds = finds.filter(nom=name)
-                if promo != "":
-                    finds = finds.filter(promo=promo)
-                if campus != "":
-                    finds = finds.filter(campus=campus)
-
-                # List of group corresponding only the teacher line to get every informations about profile and lesson
-                groups = []
-                for lesson in finds:
-                    groups.append(Groups.objects.get(lessonID=lesson, teacher=True))
-                context['lessons'] = groups
-
-        return render(request, 'search.html', context)
-
+        return render(request, 'search.html')
     else:
         return redirect('/')
 
@@ -249,6 +201,7 @@ def view_logout(request):
 
 
 def load_search(request):
+    # Get all data and send it in the list data
     finds = Lessons.objects.all()
     data = []
     for lesson in finds:
@@ -261,6 +214,28 @@ def load_search(request):
             "id": lesson.id
         }
         data.append(x)
-    json_data = json.dumps(data)
+
+    return HttpResponse(json.dumps(data))
+
+
+def load_home(request):
+    user = User.objects.get(username=request.user.username)
+    profile = Profiles.objects.get(user_id=user.id)
+    groups = Groups.objects.filter(profileID=profile.id)
+
+    # Create list to send data
+    data = []
+    for group in groups:
+        lesson = group.lessonID
+        if lesson.date >= datetime.date.today():
+            x = {
+                "title": lesson.nom,
+                "description": lesson.sujet,
+                "start": lesson.date.strftime("%Y/%m/%d"),
+                "end": lesson.date.strftime("%Y/%m/%d"),
+                "salle": lesson.salle,
+                "id": lesson.id
+            }
+            data.append(x)
 
     return HttpResponse(json.dumps(data))

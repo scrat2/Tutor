@@ -1,44 +1,153 @@
+<!DOCTYPE html>
 {% extends "global.html" %}
 {% load static %}
-{% block insert %}
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <!--<link rel="stylesheet" type="text/css" href="{% static "css/main.css"%}">-->
-        <link rel="stylesheet" type="text/css" href="{% static "css/accueil.css"%}">
-        <script>
-            function Hiddenmenu() {
-            var iframe = document.getElementById("iframe");
-            var menu = iframe.contentWindow.document.getElementsByClassName("navbar navbar-inverse")[0];
-            menu.style.display = "none";
-            var calendar = iframe.contentWindow.document.getElementsByClassName("calendrier")[0];
-            calendar.style.marginTop = "-60px";$
-            }
-        </script>
-{% endblock %}
+{% block include %}
 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+
+<!--    <script>
+        $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+                editable:false,
+                header:
+                {
+                    left:'prev,next',
+                    center:'',
+                    right:''
+                },
+				height: "auto",
+				aspectRatio: 2.4,
+                events: "/load_home/",
+				displayEventTime: false,
+                eventRender:function(event, element)
+                {
+                    element.find('.fc-title').append("<br/><b>Tuteur: </b><br/><b>Salle: </b>" + event.title,"<br/><b>Description: </b>" + event.description);
+                },
+                select: function(start, end, allDay)
+                {
+				},
+            });
+        });
+    </script>-->
+{% endblock %}
+{% block menu %}
+        <a href="/add">Ajout Cours</a>
+        <a href="/search">Recherche</a>
+		<a href="/profil" class="profil">Profil</a>
+{% endblock %}
 {% block content %}
     <div class="jumbotron text-center">
         <h1 class="display-4">Bienvenue !</h1>
         <p class="lead">Sur cette plateforme vous pourrez gérer vos séances de tutorat et avoir des bonnes notes, merci ne nous remerciez pas !</p>
     </div>
-    <div class="container text-left">
-        <div>
-            <h2>Règles d'utilisation du site</h2>
-            <br>
-            <ul>
-                <li>- Pas plus de 5 étudiants par cours (sans compter le tuteur)</li>
-                <li>- Les séances peuvent être utilisé pour le LEP</li>
-            </ul>
-        </div>
-        {% if messages %}
-            <div>
-                <h2>Vos cours</h2>
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div>
+	<div class="contenant">
+		<div class="droite">
+			<div>
+				<h2>Règles d'utilisation du site</h2>
+				<br>
+				<ul>
+					<li>- Pas plus de 5 étudiants par cours (sans compter le tuteur)</li>
+					<li>- Les séances peuvent être utilisé pour le LEP</li>
+				</ul>
+			</div>
+		</div>
+		<div class="gauche">
+			<h2>LA DARONNE DE MARTIN</h2>
+			<button id="myBtn">Ajouter un cours</button>
+		</div>
+	</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+	  <div class="modal-content">
+		<span class="close">&times;</span>
+			<div class="main">
+					<section class="signup">
+						<div class="container">
+							<div class="signup-content">
+								<form action="#" method="post" id="signup-form" class="signup-form">
+									{% csrf_token %}
+									<h2 class="form-title">Création d'un cours</h2>
+									<h3>Vous serez responsable de ce cours !</h3>
+									
+									<div class="form-group flex">
+										<input type="text" class="form-input" name="namelecture" placeholder="Nom du cours"/>
+                                		<input type="text" class="form-input" name="place" placeholder="Lieu du cours"/>
+									</div>
+									<div class="form-group flex">
+										<div class="classe_select">
+											<input type="date" class="form-input" name="date" placeholder=" Date 'YYYY-MM-DD' "/>
+										</div>
+									</div>
+									<div class="form-group flex">
+										<div class="classe_select">
+											<input type="time" class="form-input" name="time-start" placeholder="Time Start"/>
+										</div>
+										<div class="classe_select">
+											<input type="time" class="form-input" name="time-end" placeholder="Time End"/>
+										</div>
+									</div>
+									<div class="form-group flex">
+										<div class="classe_select">
+											<input type="text" class="form-input" name="promo" placeholder="PROMO"/>
+										</div>
+									</div>
+									<div class="form-group flex">
+										<div class="classe_select">
+											<input type="text" class="form-input" name="campus" placeholder="Campus"/>
+										</div>
+									</div>
+									<div class="form-group flex">
+										<div class="classe_select">
+											<textarea class="form-input" name="sujet" rows="2" cols="62" placeholder="Description / Sujet"></textarea>
+										</div>
+									</div>
+									<div id="divbtn">
+										<button type="submit"  id="submit" class="form-submit" name="submit">Enregistrer</button>
+									</div>
+								</form>
+							</div>
+						</div>
+				</section>
+			</div>
+	  </div>
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
 {% endblock %}
