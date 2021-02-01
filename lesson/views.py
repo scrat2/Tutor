@@ -205,11 +205,13 @@ def load_search(request):
     finds = Lessons.objects.all()
     data = []
     for lesson in finds:
+        start = lesson.date.strftime("%Y/%m/%d") + ", " + lesson.begin.strftime("%H:%M:%S")
+        end = lesson.date.strftime("%Y/%m/%d") + ", " + lesson.end.strftime("%H:%M:%S")
         x = {
             "title": lesson.nom,
             "description": lesson.sujet,
-            "start": lesson.date.strftime("%Y/%m/%d"),
-            "end": lesson.date.strftime("%Y/%m/%d"),
+            "start": start,
+            "end": end,
             "salle": lesson.salle,
             "id": lesson.id
         }
