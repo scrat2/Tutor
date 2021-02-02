@@ -39,45 +39,41 @@
                 <section class="signup">
                     <div class="container">
                         <div class="signup-content">
-                            <form action="/add/" method="post" id="signup-form" class="signup-form">
+                            <form action="#" method="post" id="signup-form" class="signup-form">
                                 {% csrf_token %}
                                 <h2 class="form-title">Création d'un cours</h2>
                                 <h3>Vous serez responsable de ce cours !</h3>
 
                                 <div class="form-group flex">
-                                    <input type="text" class="form-input" name="namelecture"
-                                           placeholder="Nom du cours"/>
-                                    <input type="text" class="form-input" name="place" placeholder="Lieu du cours"/>
+                                    {{ lessonform.name }}
+                                    {{ lessonform.room }}
                                 </div>
                                 <div class="form-group flex">
                                     <div class="classe_select">
-                                        <input type="date" class="form-input" name="date"
-                                               placeholder=" Date 'YYYY-MM-DD' "/>
+                                        {{ lessonform.date }}
                                     </div>
                                 </div>
                                 <div class="form-group flex">
                                     <div class="classe_select">
-                                        <input type="time" class="form-input" name="time-start"
-                                               placeholder="Time Start"/>
+                                        {{ lessonform.begin }}
                                     </div>
                                     <div class="classe_select">
-                                        <input type="time" class="form-input" name="time-end" placeholder="Time End"/>
-                                    </div>
-                                </div>
-                                <div class="form-group flex">
-                                    <div class="classe_select">
-                                        <input type="text" class="form-input" name="promo" placeholder="PROMO"/>
+                                        {{ lessonform.end }}
                                     </div>
                                 </div>
                                 <div class="form-group flex">
                                     <div class="classe_select">
-                                        <input type="text" class="form-input" name="campus" placeholder="Campus"/>
+                                        {{ lessonform.promo }}
                                     </div>
                                 </div>
                                 <div class="form-group flex">
                                     <div class="classe_select">
-                                        <textarea class="form-input" name="sujet" rows="2" cols="62"
-                                                  placeholder="Description / Sujet"></textarea>
+                                        {{ lessonform.campus }}
+                                    </div>
+                                </div>
+                                <div class="form-group flex">
+                                    <div class="classe_select">
+                                        {{ lessonform.subject }}
                                     </div>
                                 </div>
                                 <div id="divbtn">

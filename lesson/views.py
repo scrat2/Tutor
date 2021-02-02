@@ -87,26 +87,13 @@ def profil(request):
 
 
 def home(request):
+    lessonform = LessonForm()
+    context = {
+        'lessonform': lessonform
+    }
     if request.user.is_authenticated:
-        return render(request, 'home.html')
-    else:
-        return redirect('/')
-
-
-"""
-def add(request):
-    if request.user.is_authenticated:
-
-        # Get the form from forms.py and add it to the context to send it to the template.
-        lessonform = LessonForm()
-        context = {
-            'lessonform': lessonform
-        }
         if request.method == 'POST':
-            # Get data from the form
             form = LessonForm(request.POST)
-
-            # Clean data to avoid injection
             if form.is_valid():
                 name = form.cleaned_data['name']
                 room = form.cleaned_data['room']
@@ -142,11 +129,9 @@ def add(request):
                 else:
                     context['result'] = "Veuillez entrer des informations cohérentes"
 
-        return render(request, 'add.html', context)
-
+        return render(request, 'home.html', context)
     else:
         return redirect('/')
-"""
 
 
 def search(request):
