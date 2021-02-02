@@ -9,10 +9,9 @@ urlpatterns = [
     path('', views.connexion),
     path('profil/', views.profil),
     path('home/', views.home),
-    path('add/', views.add),
+    # path('add/', views.add),
     path('search/', views.search),
     path('logout/', views.view_logout),
     path('load_search/', views.load_search),
-    path('load_home/', views.load_home),
     re_path(r'^subscribe/(?P<lesson_id>[0-9]+)/$', views.subscribe),
 ]

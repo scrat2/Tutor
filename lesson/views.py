@@ -204,11 +204,13 @@ def load_search(request):
     for lesson in finds:
         start = lesson.date.strftime("%Y/%m/%d") + ", " + lesson.begin.strftime("%H:%M:%S")
         end = lesson.date.strftime("%Y/%m/%d") + ", " + lesson.end.strftime("%H:%M:%S")
+        group = Groups.objects.get(lessonID=lesson, teacher=True)
         x = {
             "title": lesson.nom,
             "description": lesson.sujet,
             "start": start,
             "end": end,
+            "teacher": group.profileID.user.username,
             "salle": lesson.salle,
             "id": lesson.id
         }

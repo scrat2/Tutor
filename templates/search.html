@@ -41,7 +41,7 @@
                 allDayText: 'Toute la journée',
                 noEventsMessage: 'Aucun Évenement',
                 eventRender: function (event, element) {
-                    element.find('.fc-title').append("<br/><b>Tuteur: </b><br/><b>Salle: </b>" + event.title, "<br/><b>Description: </b><p>" + event.description + "</p>");
+                    element.find('.fc-title').append("<br/><b>Tuteur: " + event.teacher);
 
                 },
                 selectable: true,
