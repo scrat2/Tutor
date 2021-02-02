@@ -2,10 +2,10 @@
 {% extends "global.html" %}
 {% load static %}
 {% block include %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
     <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
@@ -18,90 +18,95 @@
 {% block content %}
     <div class="jumbotron text-center">
         <h1 class="display-4">Bienvenue !</h1>
-        <p class="lead">Sur cette plateforme vous pourrez gérer vos séances de tutorat et avoir des bonnes notes, merci ne nous remerciez pas !</p>
-	<button id="myBtn">Ajouter un cours</button>
+        <p class="lead">Sur cette plateforme vous pourrez gérer vos séances de tutorat et avoir des bonnes notes, merci
+            ne nous remerciez pas !</p>
+        <button id="myBtn">Ajouter un cours</button>
     </div>
-	<div class="contenant">
-		<div class="droite">
-			<h2>Vos cours :</h2>			
-		</div>
-		<div class="gauche">
-			<h2>Vos cours responsable</h2>
-		</div>
-	</div>
-	<!-- The Modal -->
-	<div id="myModal" class="modal">
-	  <!-- Modal content -->
-		  <div class="modal-content">
-			<span class="close">&times;</span>
-				<div class="main">
-						<section class="signup">
-							<div class="container">
-								<div class="signup-content">
-									<form action="/add/" method="post" id="signup-form" class="signup-form">
-										{% csrf_token %}
-										<h2 class="form-title">Création d'un cours</h2>
-										<h3>Vous serez responsable de ce cours !</h3>
+    <div class="contenant">
+        <div class="droite">
+            <h2>Vos cours :</h2>
+        </div>
+        <div class="gauche">
+            <h2>Vos cours responsable</h2>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="main">
+                <section class="signup">
+                    <div class="container">
+                        <div class="signup-content">
+                            <form action="/add/" method="post" id="signup-form" class="signup-form">
+                                {% csrf_token %}
+                                <h2 class="form-title">Création d'un cours</h2>
+                                <h3>Vous serez responsable de ce cours !</h3>
 
-										<div class="form-group flex">
-											<input type="text" class="form-input" name="namelecture" placeholder="Nom du cours"/>
-											<input type="text" class="form-input" name="place" placeholder="Lieu du cours"/>
-										</div>
-										<div class="form-group flex">
-											<div class="classe_select">
-												<input type="date" class="form-input" name="date" placeholder=" Date 'YYYY-MM-DD' "/>
-											</div>
-										</div>
-										<div class="form-group flex">
-											<div class="classe_select">
-												<input type="time" class="form-input" name="time-start" placeholder="Time Start"/>
-											</div>
-											<div class="classe_select">
-												<input type="time" class="form-input" name="time-end" placeholder="Time End"/>
-											</div>
-										</div>
-										<div class="form-group flex">
-											<div class="classe_select">
-												<input type="text" class="form-input" name="promo" placeholder="PROMO"/>
-											</div>
-										</div>
-										<div class="form-group flex">
-											<div class="classe_select">
-												<input type="text" class="form-input" name="campus" placeholder="Campus"/>
-											</div>
-										</div>
-										<div class="form-group flex">
-											<div class="classe_select">
-												<textarea class="form-input" name="sujet" rows="2" cols="62" placeholder="Description / Sujet"></textarea>
-											</div>
-										</div>
-										<div id="divbtn">
-											<button type="submit"  id="submit" class="form-submit" name="submit">Enregistrer</button>
-										</div>
-									</form>
-								</div>
-							</div>
-					</section>
-				</div>
-		  </div>
-	</div>
-<script>
-// Get the modal Add
-	var modal = document.getElementById("myModal");
-	var btn = document.getElementById("myBtn");
-	var span = document.getElementsByClassName("close")[0];
-	btn.onclick = function() {
-	  modal.style.display = "block";
-	}
-	span.onclick = function() {
-	  modal.style.display = "none";
-	}
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-		modal.style.display = "none";
-	  }
-	}
-	
-</script>
+                                <div class="form-group flex">
+                                    <input type="text" class="form-input" name="namelecture"
+                                           placeholder="Nom du cours"/>
+                                    <input type="text" class="form-input" name="place" placeholder="Lieu du cours"/>
+                                </div>
+                                <div class="form-group flex">
+                                    <div class="classe_select">
+                                        <input type="date" class="form-input" name="date"
+                                               placeholder=" Date 'YYYY-MM-DD' "/>
+                                    </div>
+                                </div>
+                                <div class="form-group flex">
+                                    <div class="classe_select">
+                                        <input type="time" class="form-input" name="time-start"
+                                               placeholder="Time Start"/>
+                                    </div>
+                                    <div class="classe_select">
+                                        <input type="time" class="form-input" name="time-end" placeholder="Time End"/>
+                                    </div>
+                                </div>
+                                <div class="form-group flex">
+                                    <div class="classe_select">
+                                        <input type="text" class="form-input" name="promo" placeholder="PROMO"/>
+                                    </div>
+                                </div>
+                                <div class="form-group flex">
+                                    <div class="classe_select">
+                                        <input type="text" class="form-input" name="campus" placeholder="Campus"/>
+                                    </div>
+                                </div>
+                                <div class="form-group flex">
+                                    <div class="classe_select">
+                                        <textarea class="form-input" name="sujet" rows="2" cols="62"
+                                                  placeholder="Description / Sujet"></textarea>
+                                    </div>
+                                </div>
+                                <div id="divbtn">
+                                    <button type="submit" id="submit" class="form-submit" name="submit">Enregistrer
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get the modal Add
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 {% endblock %}

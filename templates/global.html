@@ -15,7 +15,7 @@
 		<!-- Include JS	-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-		
+
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		{% block include %}{% endblock %}
         <title>Tutor</title>
@@ -34,7 +34,7 @@
 				</a>
 				{% block menu %}{% endblock %}
 			    <a href="/logout" id="logout">Déconnexion</a>
-			
+
 				<a href="javascript:void(0);" class="icon" onclick="myFunction()">
 					<i class="fa fa-bars"></i>
 		  		</a>
@@ -58,34 +58,32 @@
 							</div>
 					  </div>
 				</div>
-		<script>
-		function myFunction() {
-		  var x = document.getElementById("myTopnav");
-		  if (x.className === "topnav") {
-			x.className += " responsive";
-		  } else {
-			x.className = "topnav";
-		  }
-		}
-		// Get the modal help
-		var btn_help = document.getElementById("svg_help");
-		var span_help = document.getElementsByClassName("close_help")[0];
-		var modal_help = document.getElementById("myModal_help");
-		btn_help.onclick = function() {
-		  modal_help.style.display = "block";
-		}
-		span_help.onclick = function() {
-		  modal_help.style.display = "none";
-		}
-		window.onclick = function(event) {
-		  if (event.target == modal_help) {
-			modal_help.style.display = "none";
-		  }
-		}
-		</script>
-		
-		
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+
+            // Get the modal help
+            var btn_help = document.getElementById("svg_help");
+            var span_help = document.getElementsByClassName("close_help")[0];
+            var modal_help = document.getElementById("myModal_help");
+            btn_help.onclick = function () {
+                modal_help.style.display = "block";
+            }
+            span_help.onclick = function () {
+                modal_help.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modal_help) {
+                    modal_help.style.display = "none";
+                }
+            }
+        </script>
         {% block content %}{% endblock %}
-		
     </body>
 </html>

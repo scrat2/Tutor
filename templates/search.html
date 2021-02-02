@@ -14,41 +14,39 @@
 	<script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
 	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var calendar = $('#calendar').fullCalendar({
-                editable:false,
+                editable: false,
                 minTime: '08:00:00',
-				firstDay: 1,
-				buttonText: {
-					today:    'Aujourd\'hui',
-					month:    'Grille',
-					week:     'Semaine',
-					day:      'jour',
-					list:     'Liste'
-				},
-				header: {
-					left:'prev,next today',
-					center: 'title',
-					right:'month,agendaWeek,agendaDay',
-				},
-				monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
-				monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin','Juil','Aout','Sept','Oct','Nov','Dec'],
-				dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-				dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
-				height: "auto",
+                firstDay: 1,
+                buttonText: {
+                    today: 'Aujourd\'hui',
+                    month: 'Grille',
+                    week: 'Semaine',
+                    day: 'jour',
+                    list: 'Liste'
+                },
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay',
+                },
+                monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+                height: "auto",
                 events: "/load_search/",
-				displayEventTime: false,
-				allDayText: 'Toute la journée',
-        		noEventsMessage: 'Aucun Évenement',
-                eventRender:function(event, element)
-                {
-                    element.find('.fc-title').append("<br/><b>Tuteur: </b><br/><b>Salle: </b>" + event.title,"<br/><b>Description: </b><p>" + event.description +"</p>");
+                displayEventTime: false,
+                allDayText: 'Toute la journée',
+                noEventsMessage: 'Aucun Évenement',
+                eventRender: function (event, element) {
+                    element.find('.fc-title').append("<br/><b>Tuteur: </b><br/><b>Salle: </b>" + event.title, "<br/><b>Description: </b><p>" + event.description + "</p>");
 
                 },
-                selectable:true,
-                selectHelper:true,
-                select: function(start, end, allDay)
-                {
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end, allDay) {
                     /*     var title = prompt("Enter Event Title");
                     if(title)
                     {
@@ -67,8 +65,7 @@
                     }*/
                 },
 
-                eventResize:function(event)
-                {
+                eventResize: function (event) {
                     /*     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                     var title = event.title;
@@ -84,8 +81,7 @@
                     })*/
                 },
 
-                eventDrop:function(event)
-                {
+                eventDrop: function (event) {
                     /*     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                     var title = event.title;
@@ -102,16 +98,13 @@
                     });*/
                 },
 
-                eventClick:function(event)
-                {
-                    if(confirm("Voulez vous vous inscrire ?"))
-                    {
+                eventClick: function (event) {
+                    if (confirm("Voulez vous vous inscrire ?")) {
                         var id = event.id;
                         $.ajax({
-                            url:"/subscribe/"+ event.id,
-                            type:"GET",
-                            success:function()
-                            {
+                            url: "/subscribe/" + event.id,
+                            type: "GET",
+                            success: function () {
                                 calendar.fullCalendar('refetchEvents');
                                 alert("Vous etes inscrit");
                             }
@@ -130,45 +123,45 @@
     <div class="jumbotron text-center">
         <h2 class="display-4">Prochaines séances</h2>
         <hr class="my-4">
-        <br />
+        <br/>
         <div class="container text-left">
             <div id="calendar"></div>
         </div>
-		<!-- The Modal -->
-		<div id="myModal" class="modal">
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-		  <!-- Modal content -->
-		  <div class="modal-content">
-			<span class="close">&times;</span>
-			<p>Some text in the Modal..</p>
-		  </div>
-		</div>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+        </div>
     </div>
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 {% endblock %}

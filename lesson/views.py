@@ -93,6 +93,7 @@ def home(request):
         return redirect('/')
 
 
+"""
 def add(request):
     if request.user.is_authenticated:
 
@@ -145,6 +146,7 @@ def add(request):
 
     else:
         return redirect('/')
+"""
 
 
 def search(request):
@@ -195,11 +197,6 @@ def subscribe(request, lesson_id):
         return redirect('/')
 
 
-def view_logout(request):
-    logout(request)
-    return redirect('/')
-
-
 def load_search(request):
     # Get all data and send it in the list data
     finds = Lessons.objects.all()
@@ -220,24 +217,6 @@ def load_search(request):
     return HttpResponse(json.dumps(data))
 
 
-def load_home(request):
-    user = User.objects.get(username=request.user.username)
-    profile = Profiles.objects.get(user_id=user.id)
-    groups = Groups.objects.filter(profileID=profile.id)
-
-    # Create list to send data
-    data = []
-    for group in groups:
-        lesson = group.lessonID
-        if lesson.date >= datetime.date.today():
-            x = {
-                "title": lesson.nom,
-                "description": lesson.sujet,
-                "start": lesson.date.strftime("%Y/%m/%d"),
-                "end": lesson.date.strftime("%Y/%m/%d"),
-                "salle": lesson.salle,
-                "id": lesson.id
-            }
-            data.append(x)
-
-    return HttpResponse(json.dumps(data))
+def view_logout(request):
+    logout(request)
+    return redirect('/')
