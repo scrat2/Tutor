@@ -104,7 +104,7 @@ def home(request):
                 teacher_lesson.append(group)
             else:
                 if group.lessonID.date >= datetime.date.today():
-                    follow_lesson.append(group)
+                    follow_lesson.append(Groups.objects.get(lessonID=group.lessonID, teacher=True))
 
         # Add lesson in the context
         context['teacher_lesson'] = teacher_lesson
@@ -129,7 +129,6 @@ def home(request):
                 promo = clear_data(promo)
                 campus = clear_data(campus)
                 subject = clear_data(subject)
-                print(name + room + subject)
 
                 # Check logic of entries before to save in database
                 if date >= datetime.date.today() and begin < end:
