@@ -36,7 +36,26 @@ li {
 	height: 25px;
     border-left: 1px solid #878787;
     margin-top: 12px;
+	padding: inherit;
 }
+#svg_help{
+	padding: inherit;
+	height: 16px;
+    margin-left: 16px;
+    margin-top: 16px;
+}
+.close_help{
+	 color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close_help:hover, .close_help:focus{
+	 color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* CSS Document */
 
 

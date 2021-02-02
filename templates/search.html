@@ -17,18 +17,33 @@
         $(document).ready(function() {
             var calendar = $('#calendar').fullCalendar({
                 editable:false,
-                header:
-                {
-                    left:'prev,next',
-                    center:'title',
-                    right:'month,agendaWeek,agendaDay'
-                },
+                minTime: '08:00:00',
+				firstDay: 1,
+				buttonText: {
+					today:    'Aujourd\'hui',
+					month:    'Grille',
+					week:     'Semaine',
+					day:      'jour',
+					list:     'Liste'
+				},
+				header: {
+					left:'prev,next today',
+					center: 'title',
+					right:'month,agendaWeek,agendaDay',
+				},
+				monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+				monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Juin','Juil','Aout','Sept','Oct','Nov','Dec'],
+				dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+				dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 				height: "auto",
                 events: "/load_search/",
 				displayEventTime: false,
+				allDayText: 'Toute la journée',
+        		noEventsMessage: 'Aucun Évenement',
                 eventRender:function(event, element)
                 {
                     element.find('.fc-title').append("<br/><b>Tuteur: </b><br/><b>Salle: </b>" + event.title,"<br/><b>Description: </b><p>" + event.description +"</p>");
+
                 },
                 selectable:true,
                 selectHelper:true,
@@ -108,7 +123,6 @@
     </script>
 {% endblock %}
 {% block menu %}
-        <a href="/add">Ajout Cours</a>
         <a href="/search" id="active">Recherche</a>
 		<a href="/profil" class="profil">Profil</a>
 {% endblock %}

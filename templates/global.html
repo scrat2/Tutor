@@ -26,6 +26,12 @@
 					<img src="{% static '/images/logo.png' %}" alt="logo_esaip">Tutor'<b id="e">e</b>saip
 				</a>
 				<a id="divider-vertical"></a>
+				<a id="svg_help">
+					<svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+						  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+						  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+					</svg>
+				</a>
 				{% block menu %}{% endblock %}
 			    <a href="/logout" id="logout">Déconnexion</a>
 			
@@ -33,6 +39,25 @@
 					<i class="fa fa-bars"></i>
 		  		</a>
 		</div>
+		<!-- The Modal -->
+				<div id="myModal_help" class="modal">
+				  <!-- Modal content -->
+					  <div class="modal-content">
+						<span class="close_help">&times;</span>
+							<div class="main_help">
+								<div class="container_help">
+									<div class="signup-content_help">
+										<h2>Règles d'utilisation du site</h2>
+										<br>
+										<ul>
+											<li>- Pas plus de 5 étudiants par cours (sans compter le tuteur)</li>
+											<li>- Les séances peuvent être utilisé pour le LEP</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+					  </div>
+				</div>
 		<script>
 		function myFunction() {
 		  var x = document.getElementById("myTopnav");
@@ -42,8 +67,25 @@
 			x.className = "topnav";
 		  }
 		}
+		// Get the modal help
+		var btn_help = document.getElementById("svg_help");
+		var span_help = document.getElementsByClassName("close_help")[0];
+		var modal_help = document.getElementById("myModal_help");
+		btn_help.onclick = function() {
+		  modal_help.style.display = "block";
+		}
+		span_help.onclick = function() {
+		  modal_help.style.display = "none";
+		}
+		window.onclick = function(event) {
+		  if (event.target == modal_help) {
+			modal_help.style.display = "none";
+		  }
+		}
 		</script>
 		
+		
         {% block content %}{% endblock %}
+		
     </body>
 </html>
