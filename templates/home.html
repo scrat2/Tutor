@@ -23,12 +23,12 @@
             {% for cour in follow_lesson %}
                 <div class="card bg-info" style="width: 18rem;">
                     <div class="card-body">
-                        <h4 class="card-title">{{ cour.nom }}</h4>
-                        <p class="card-text">Tuteur : </p>
-                        <p class="card-text">date : {{ cour.date }}</p>
-                        <p class="card-text">heure début : {{ cour.begin }}</p>
-                        <p class="card-text">heure fin : {{ cour.end }}</p>
-                        <p class="card-text">Salle : {{ cour.salle }}</p>
+                        <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
+                        <p class="card-text">Tuteur : {{  cour.profileID.user.username }}</p>
+                        <p class="card-text">date : {{ cour.lessonID.date }}</p>
+                        <p class="card-text">heure début : {{ cour.lessonID.begin }}</p>
+                        <p class="card-text">heure fin : {{ cour.lessonID.end }}</p>
+                        <p class="card-text">Salle : {{ cour.lessonID.salle }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -38,12 +38,12 @@
             {% for cour in teacher_lesson %}
                 <div class="card bg-danger" style="width: 18rem;">
                     <div class="card-body">
-                        <h4 class="card-title">{{ cour.nom }}</h4>
-                        <p class="card-text">Tuteur : </p>
-                        <p class="card-text">date : {{ cour.date }}</p>
-                        <p class="card-text">heure début : {{ cour.begin }}</p>
-                        <p class="card-text">heure fin : {{ cour.end }}</p>
-                        <p class="card-text">Salle : {{ cour.salle }}</p>
+                        <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
+                        <p class="card-text">Tuteur : {{ cour.profileID.user.username }}</p>
+                        <p class="card-text">date : {{ cour.lessonID.date }}</p>
+                        <p class="card-text">heure début : {{ cour.lessonID.begin }}</p>
+                        <p class="card-text">heure fin : {{ cour.lessonID.end }}</p>
+                        <p class="card-text">Salle : {{ cour.lessonID.salle }}</p>
                     </div>
                 </div>
             {% endfor %}

@@ -101,10 +101,10 @@ def home(request):
         follow_lesson = []
         for group in all_group:
             if group.teacher and group.lessonID.date >= datetime.date.today():
-                teacher_lesson.append(group.lessonID)
+                teacher_lesson.append(group)
             else:
                 if group.lessonID.date >= datetime.date.today():
-                    follow_lesson.append(group.lessonID)
+                    follow_lesson.append(group)
 
         # Add lesson in the context
         context['teacher_lesson'] = teacher_lesson
