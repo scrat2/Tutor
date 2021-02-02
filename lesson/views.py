@@ -87,11 +87,30 @@ def profil(request):
 
 
 def home(request):
-    lessonform = LessonForm()
-    context = {
-        'lessonform': lessonform
-    }
     if request.user.is_authenticated:
+        lessonform = LessonForm()
+        context = {
+            'lessonform': lessonform
+        }
+
+        # Get all your lesson and sort them
+        user = User.objects.get(username=request.user.username)
+        profile = Profiles.objects.get(user_id=user.id)
+        all_group = Groups.objects.filter(profileID=profile)
+        teacher_lesson = []
+        follow_lesson = []
+        for group in all_group:
+            if group.teacher and group.lessonID.date >= datetime.date.today():
+                teacher_lesson.append(group.lessonID)
+            else:
+                if group.lessonID.date >= datetime.date.today():
+                    follow_lesson.append(group.lessonID)
+
+        # Add lesson in the context
+        context['teacher_lesson'] = teacher_lesson
+        context['follow_lesson'] = follow_lesson
+
+        # Check the form
         if request.method == 'POST':
             form = LessonForm(request.POST)
             if form.is_valid():

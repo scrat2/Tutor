@@ -5,11 +5,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
-    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 {% endblock %}
 {% block menu %}
     <a href="/search">Recherche</a>
@@ -25,9 +20,33 @@
     <div class="contenant">
         <div class="droite">
             <h2>Vos cours :</h2>
+            {% for cour in follow_lesson %}
+                <div class="card bg-info" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ cour.nom }}</h4>
+                        <p class="card-text">Tuteur : </p>
+                        <p class="card-text">date : {{ cour.date }}</p>
+                        <p class="card-text">heure début : {{ cour.begin }}</p>
+                        <p class="card-text">heure fin : {{ cour.end }}</p>
+                        <p class="card-text">Salle : {{ cour.salle }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
         <div class="gauche">
             <h2>Vos cours responsable</h2>
+            {% for cour in teacher_lesson %}
+                <div class="card bg-danger" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ cour.nom }}</h4>
+                        <p class="card-text">Tuteur : </p>
+                        <p class="card-text">date : {{ cour.date }}</p>
+                        <p class="card-text">heure début : {{ cour.begin }}</p>
+                        <p class="card-text">heure fin : {{ cour.end }}</p>
+                        <p class="card-text">Salle : {{ cour.salle }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <!-- The Modal -->
