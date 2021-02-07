@@ -208,6 +208,7 @@ def load_search(request):
         start = lesson.date.strftime("%Y/%m/%d") + ", " + lesson.begin.strftime("%H:%M:%S")
         end = lesson.date.strftime("%Y/%m/%d") + ", " + lesson.end.strftime("%H:%M:%S")
         group = Groups.objects.get(lessonID=lesson, teacher=True)
+        nb_participant = Groups.objects.filter(lessonID=lesson).count()
         x = {
             "title": lesson.nom,
             "description": lesson.sujet,
@@ -215,7 +216,8 @@ def load_search(request):
             "end": end,
             "teacher": group.profileID.user.username,
             "salle": lesson.salle,
-            "id": lesson.id
+            "id": lesson.id,
+            "participant": nb_participant - 1
         }
         data.append(x)
 

@@ -127,11 +127,13 @@
                     var content = document.getElementById("modal-content");
                     var title = event.title;
                     var tuteur = event.teacher;
+                    var nbParticipant = event.participant;
                     var salle =event.salle;
                     var description = event.description;
                     content.innerHTML = "<span class=\"close\">&times;</span>" +
                         "<h4>"+title+"</h4>" +
                         "<p> Tuteur : " + tuteur + "</p>" +
+                        "<p> Nombre de particiapant : " + nbParticipant + "</p>" +
                         "<p> Salle : " + salle + "</p>" +
                         "<p> Description : " + description + "</p>" +
                         "<button onclick=\"window.location.href = '/load_search/" + event.id + "';\"> s'inscrire </button>";
