@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
+    <script src="{% static 'js/sendData.js' %}"></script>
 {% endblock %}
 {% block menu %}
     <a href="/search">Recherche</a>
@@ -39,6 +40,7 @@
                 <div class="card bg-danger" style="width: 18rem;">
                     <div class="card-body">
                         <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
+                        <button onclick="deleteLesson({'id':'{{ cour.lessonID_id }}', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})"> <span class="glyphicon glyphicon-trash"></span></button>
                         <p class="card-text">Tuteur : {{ cour.profileID.user.username }}</p>
                         <p class="card-text">date : {{ cour.lessonID.date }}</p>
                         <p class="card-text">heure début : {{ cour.lessonID.begin }}</p>

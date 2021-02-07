@@ -136,9 +136,7 @@ def home(request):
                                      end=end, salle=room)
                     lesson.save()
 
-                    # Get current user and save it as teacher for the lesson
-                    user = User.objects.get(username=request.user.username)
-                    profile = Profiles.objects.get(user_id=user.id)
+                    # Save current user as teacher for the lesson
                     group = Groups(profileID=profile, lessonID=lesson, teacher=True)
                     group.save()
 
@@ -147,6 +145,17 @@ def home(request):
                 else:
                     context['result'] = "Veuillez entrer des informations cohérentes"
 
+            try:
+                idlesson = request.POST['id']
+                teacher = Groups.objects.get(lessonID=idlesson, teacher=True)
+                if teacher.profileID_id == profile.id:
+                    Lessons.objects.get(id=idlesson).delete()
+                    answer = {'reponse': 'le cours a bien été supprimé'}
+                else:
+                    answer = {'reponse': 'Merci de ne pas essayer de supprimer les cours des autres.'}
+                return HttpResponse(json.dumps(answer))
+            except:
+                print("ERROR : Modify or delete unknown lesson")
         return render(request, 'home.html', context)
     else:
         return redirect('/')
@@ -154,40 +163,43 @@ def home(request):
 
 def search(request):
     if request.user.is_authenticated:
-        if request.method == 'POST' and request.POST['id'] is not None:
-            idlesson = request.POST['id']
+        if request.method == 'POST':
+            try:
+                context = {
+                    'reponse': 'Echec'
+                }
+                idlesson = request.POST['id']
 
-            context = {
-                'reponse': 'Echec'
-            }
+                # Get the current user and the corresponding profile
+                user = User.objects.get(username=request.user.username)
+                profile = Profiles.objects.get(user_id=user.id)
 
-            # Get the current user and the corresponding profile
-            user = User.objects.get(username=request.user.username)
-            profile = Profiles.objects.get(user_id=user.id)
+                # Get the lesson from the id set in url and the corresponding group's entries
+                lesson = Lessons.objects.get(id=idlesson)
+                group = Groups.objects.filter(lessonID=lesson)
 
-            # Get the lesson from the id set in url and the corresponding group's entries
-            lesson = Lessons.objects.get(id=idlesson)
-            group = Groups.objects.filter(lessonID=lesson)
+                # If more than 5 users are already registered the lesson are unavailable
+                if len(group) > 5:
+                    context['reponse'] = 'Il y a déjà trop de monde pour ce cours'
+                elif lesson.date < datetime.date.today():
+                    context['reponse'] = 'Ce cours est déjà passé'
+                else:
+                    # Check if the user is already registered for this lesson
+                    already = False
+                    for person in group:
+                        if person.profileID == profile:
+                            already = True
+                            context['reponse'] = 'Vous êtes déjà inscrit'
 
-            # If more than 5 users are already registered the lesson are unavailable
-            if len(group) > 5:
-                context['reponse'] = 'Il y a déjà trop de monde pour ce cours'
-            elif lesson.date < datetime.date.today():
-                context['reponse'] = 'Ce cours est déjà passé'
-            else:
-                # Check if the user is already registered for this lesson
-                already = False
-                for person in group:
-                    if person.profileID == profile:
-                        already = True
-                        context['reponse'] = 'Vous êtes déjà inscrit'
+                    # Finally get success message and save the entry in the database
+                    if not already:
+                        context['reponse'] = 'Vous êtes inscrit avec succès'
+                        subscriber = Groups(lessonID=lesson, profileID=profile)
+                        subscriber.save()
+                return HttpResponse(json.dumps(context))
+            except:
+                print('ERROR : Unknown lesson ID')
 
-                # Finally get success message and save the entry in the database
-                if not already:
-                    context['reponse'] = 'Vous êtes inscrit avec succès'
-                    subscriber = Groups(lessonID=lesson, profileID=profile)
-                    subscriber.save()
-            return HttpResponse(json.dumps(context))
         return render(request, 'search.html')
     else:
         return redirect('/')

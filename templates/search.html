@@ -141,10 +141,6 @@
                     var nbParticipant = event.participant;
                     var salle =event.salle;
                     var description = event.description;
-                    var data = {
-                        'id' : '10',
-                        'csrfmiddlewaretoken' : '{{ csrf_token }}'
-                    }
                     content.innerHTML = "<span class=\"close\">&times;</span>" +
                         "<h4>"+title+"</h4>" +
                         "<p> Tuteur : " + tuteur + "</p>" +
