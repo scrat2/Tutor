@@ -13,6 +13,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 	<script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
 	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="{% static 'js/sendData.js' %}"></script>
 {% endblock %}
 {% block menu %}
         <a href="/search" id="active">Recherche</a>
@@ -34,9 +35,19 @@
             <span class="close">&times;</span>
         </div>
     </div>
+    {% if subscribe %}
+        <script>
+            {% if disponible %}
+                alert("vous êtes bien inscrit");
+            {% elif already %}
+                alert("vous êtes déjà inscrit");
+            {% elif not disponible %}
+                alert("Ce cours est déjà plein");
+            {% endif %}
+        </script>
+    {% endif %} 
     <script>
         $(document).ready(function () {
-            var sentence
             var calendar = $('#calendar').fullCalendar({
                 editable: false,
                 minTime: '08:00:00',
@@ -130,13 +141,17 @@
                     var nbParticipant = event.participant;
                     var salle =event.salle;
                     var description = event.description;
+                    var data = {
+                        'id' : '10',
+                        'csrfmiddlewaretoken' : '{{ csrf_token }}'
+                    }
                     content.innerHTML = "<span class=\"close\">&times;</span>" +
                         "<h4>"+title+"</h4>" +
                         "<p> Tuteur : " + tuteur + "</p>" +
                         "<p> Nombre de particiapant : " + nbParticipant + "</p>" +
                         "<p> Salle : " + salle + "</p>" +
                         "<p> Description : " + description + "</p>" +
-                        "<button onclick=\"window.location.href = '/load_search/" + event.id + "';\"> s'inscrire </button>";
+                        "<button onclick=\"subscribe({'id' : '" + event.id + "', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})\"> s'inscrire </button>";
                     // When the user clicks on <span> (x), close the modal
                     var span = document.getElementsByClassName("close")[0];
                     span.onclick = function () {

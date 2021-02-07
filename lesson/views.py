@@ -154,48 +154,41 @@ def home(request):
 
 def search(request):
     if request.user.is_authenticated:
-        return render(request, 'search.html')
-    else:
-        return redirect('/')
+        if request.method == 'POST' and request.POST['id'] is not None:
+            idlesson = request.POST['id']
 
-
-def subscribe(request, lesson_id):
-    if request.user.is_authenticated:
-
-        # Get the current user and the corresponding profile
-        user = User.objects.get(username=request.user.username)
-        profile = Profiles.objects.get(user_id=user.id)
-
-        # Get the lesson from the id set in url and the corresponding group's entries
-        lesson = Lessons.objects.get(id=lesson_id)
-        group = Groups.objects.filter(lessonID=lesson)
-
-        # If more than 5 users are already registered the lesson are unavailable
-        if len(group) > 5:
             context = {
-                'disponible': False
+                'reponse': 'Echec'
             }
-        else:
 
-            # Check if the user is already registered for this lesson
-            already = False
-            for person in group:
-                if person.profileID == profile:
-                    already = True
-                    context = {
-                        'already': True
-                    }
+            # Get the current user and the corresponding profile
+            user = User.objects.get(username=request.user.username)
+            profile = Profiles.objects.get(user_id=user.id)
 
-            # Finally get success message and save the entry in the database
-            if not already:
-                context = {
-                    'disponible': True
-                }
-                subscriber = Groups(lessonID=lesson, profileID=profile)
-                subscriber.save()
+            # Get the lesson from the id set in url and the corresponding group's entries
+            lesson = Lessons.objects.get(id=idlesson)
+            group = Groups.objects.filter(lessonID=lesson)
 
-        return render(request, 'subscribe.html', context)
+            # If more than 5 users are already registered the lesson are unavailable
+            if len(group) > 5:
+                context['reponse'] = 'Il y a déjà trop de monde pour ce cours'
+            elif lesson.date < datetime.date.today():
+                context['reponse'] = 'Ce cours est déjà passé'
+            else:
+                # Check if the user is already registered for this lesson
+                already = False
+                for person in group:
+                    if person.profileID == profile:
+                        already = True
+                        context['reponse'] = 'Vous êtes déjà inscrit'
 
+                # Finally get success message and save the entry in the database
+                if not already:
+                    context['reponse'] = 'Vous êtes inscrit avec succès'
+                    subscriber = Groups(lessonID=lesson, profileID=profile)
+                    subscriber.save()
+            return HttpResponse(json.dumps(context))
+        return render(request, 'search.html')
     else:
         return redirect('/')
 
