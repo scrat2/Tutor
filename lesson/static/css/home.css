@@ -1,18 +1,10 @@
 /* CSS Document */
-.gauche {
-	float:left;
-	margin-left: 1%;
-	width:60%;
-	height: inherit;
+.gauche, .droite {
+	width: 100%
 }
-.droite {
-	float:right;
-	height: inherit;
-	margin-right: 7%;
-}
+
 .contenant{
-	text-align: center;
-	height: auto; 
+	display: flex;	
 }
 
 /* Modal */
@@ -111,7 +103,43 @@
 	border-radius: 10px;
   padding: 50px 85px; 
 }
-
+.container_card{
+	width: 660px;
+	display: block;
+ 	margin: 0 auto; 
+}
+.card {
+	background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 58%;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+    box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+    outline: 0;
+	margin-top: 3%;
+}
+.card-body{
+	padding: 2%;
+	text-align: center;
+}
+.card-title{
+	margin-top: 10%;
+}
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 90%;
+}
+.div_close{
+    right: 26%;
+    top: 6%;
+}
 
 
 
@@ -161,14 +189,11 @@ h2 {
   text-align: center;
   margin-bottom: 40px; }
 
-.clear {
-  clear: both; 
-}
 
 .container {
   width: 660px;
   position: relative;
-  margin: 0 auto; 
+  margin: 0 auto 2% auto;
 }
 .signup-content {
   background: #fff; 
@@ -291,7 +316,6 @@ h2 {
 
 @media screen and (max-width: 768px) {
   .container, .container_help {
-    width: calc(100% - 40px);
     max-width: 100%; 
   } 
 	body {
@@ -300,14 +324,8 @@ h2 {
 	.flex {
     	display: inherit;
 	}
-	.droite{
-		float: inherit;
-		width: 100%;
-	}
-	.gauche{
-		float: inherit;
-		width: 98%;
-		height: 100%;
+	.contenant{
+		display: block;
 	}
 	.main, .main_help{
 		width: auto;
@@ -319,7 +337,7 @@ h2 {
 		padding: inherit;
 	}
 	.flex {
-    display: inherit;
+    	display: inherit;
 	}
 }
 

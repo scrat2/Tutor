@@ -20,36 +20,43 @@
     </div>
     <div class="contenant">
         <div class="droite">
-            <h2>Vos cours :</h2>
+            <h2>Vos Inscriptions</h2>
+			<div class="container">
             {% for cour in follow_lesson %}
-                <div class="card bg-info" style="width: 18rem;">
+                <div class="card bg-info">
                     <div class="card-body">
                         <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
                         <p class="card-text">Tuteur : {{  cour.profileID.user.username }}</p>
-                        <p class="card-text">date : {{ cour.lessonID.date }}</p>
-                        <p class="card-text">heure début : {{ cour.lessonID.begin }}</p>
-                        <p class="card-text">heure fin : {{ cour.lessonID.end }}</p>
+                        <p class="card-text">Date : {{ cour.lessonID.date }}</p>
+                        <p class="card-text">Heure début : {{ cour.lessonID.begin }}</p>
+                        <p class="card-text">Heure fin : {{ cour.lessonID.end }}</p>
                         <p class="card-text">Salle : {{ cour.lessonID.salle }}</p>
                     </div>
                 </div>
             {% endfor %}
+			</div>
         </div>
         <div class="gauche">
-            <h2>Vos cours responsable</h2>
-            {% for cour in teacher_lesson %}
-                <div class="card bg-danger" style="width: 18rem;">
+            <h2>Vos responsabilités</h2>
+			<div class="container">
+				{% for cour in teacher_lesson %}
+                <div class="card bg-danger">
                     <div class="card-body">
+						<div onclick="deleteLesson({'id':'{{ cour.lessonID_id }}', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})" class="div_close">
+							<span class="close cours">&times;</span>
+						</div>
                         <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
-                        <button onclick="deleteLesson({'id':'{{ cour.lessonID_id }}', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})"> <span class="glyphicon glyphicon-trash"></span></button>
                         <p class="card-text">Tuteur : {{ cour.profileID.user.username }}</p>
-                        <p class="card-text">date : {{ cour.lessonID.date }}</p>
-                        <p class="card-text">heure début : {{ cour.lessonID.begin }}</p>
-                        <p class="card-text">heure fin : {{ cour.lessonID.end }}</p>
+                        <p class="card-text">Date : {{ cour.lessonID.date }}</p>
+                        <p class="card-text">Heure début : {{ cour.lessonID.begin }}</p>
+                        <p class="card-text">Heure fin : {{ cour.lessonID.end }}</p>
                         <p class="card-text">Salle : {{ cour.lessonID.salle }}</p>
-                        <p class="card-text">description : {{ cour.lessonID.sujet }}</p>
+                        <p class="card-text">Description : {{ cour.lessonID.sujet }}</p>
                     </div>
-                </div>
-            {% endfor %}
+					
+				</div>
+				{% endfor %}
+			</div>
         </div>
     </div>
     <!-- The Modal -->

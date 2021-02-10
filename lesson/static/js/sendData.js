@@ -15,7 +15,7 @@ function subscribe(data) {
     urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
     // Configurez la requête
-    XHR.open('POST', 'http://127.0.0.1:8000/search/');
+    XHR.open('POST', 'http://tutor.sylvainboussignac.ovh/search/');
     XHR.responseType = 'json';
 
     // Ajoutez l'en-tête HTTP requise pour requêtes POST de données de formulaire
@@ -26,6 +26,7 @@ function subscribe(data) {
     };
     // Finalement, envoyez les données.
     XHR.send(urlEncodedData);
+	location.reload();
 }
 
 function deleteLesson(data) {
@@ -46,7 +47,7 @@ function deleteLesson(data) {
         urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
         // Configurez la requête
-        XHR.open('POST', 'http://127.0.0.1:8000/home/');
+        XHR.open('POST', 'http://tutor.sylvainboussignac.ovh/home/');
         XHR.responseType = 'json';
 
         // Ajoutez l'en-tête HTTP requise pour requêtes POST de données de formulaire
@@ -57,5 +58,6 @@ function deleteLesson(data) {
         };
         // Finalement, envoyez les données.
         XHR.send(urlEncodedData);
+		location.reload();
     }
 }
