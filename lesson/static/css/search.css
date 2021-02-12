@@ -4,6 +4,25 @@
 body{
 	background-color: #eee;
 }
+.form-submit {
+  width: 100%;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+	border-radius: 5px;
+  padding: 17px 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  border: none;
+  background: -webkit-linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
+  background: -moz-linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
+  background: -o-linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
+  background: linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
+}
 /* Modal */
 .modal {
   display: none; /* Hidden by default */
@@ -22,10 +41,12 @@ body{
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 58%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    text-align: center;
+
 }
 
 /* The Close Button */
@@ -87,11 +108,15 @@ h2 {
 	.modal-content{
 		width: 90%;
 	}
+	#myBtn{
+		margin-top: 10%;
+	}
 	.signup-content, .signup-content_help {
 		padding: inherit;
 	}
 }
-@media screen and (max-width: 480px) {
+
+@media screen and (max-width: 1800px) {
 	.modal-content_help{
 		width: 90%;
 	}

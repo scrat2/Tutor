@@ -23,5 +23,69 @@ display:none;
 #loginform > div{
 margin: 12.5px 0 12.5px;
 }
+/* Modal */
+.modal_help {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.modal-content_help {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+	border-radius: 10px;	
+}
+
+/* The Close Button */
+.close_help,.close , .close_cours {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close_help:hover,
+.close_help:focus,.close:hover,
+.close:focus,.close_cours:hover,
+.close_cours:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main_help{
+	margin-top: 52px;
+    padding-bottom: 3%;
+}
+
+.container_help {
+  width: 660px;
+  position: relative;
+  margin: 0 auto; 
+}
+.signup-content_help {
+  background: #fff; 
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+	border-radius: 10px;
+  padding: 50px 85px; 
+}
 

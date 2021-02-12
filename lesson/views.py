@@ -96,6 +96,63 @@ def home(request):
         # Get all your lesson and sort them
         user = User.objects.get(username=request.user.username)
         profile = Profiles.objects.get(user_id=user.id)
+        # Check the form
+        if request.method == 'POST':
+            form = LessonForm(request.POST)
+            if form.is_valid():
+                try:
+                    name = form.cleaned_data['name']
+                    room = form.cleaned_data['room']
+                    date = form.cleaned_data['date']
+                    begin = form.cleaned_data['begin']
+                    end = form.cleaned_data['end']
+                    promo = form.cleaned_data['promo']
+                    campus = form.cleaned_data['campus']
+                    subject = form.cleaned_data['subject']
+
+                    # clear xss
+                    name = clear_data(name)
+                    room = clear_data(room)
+                    promo = clear_data(promo)
+                    campus = clear_data(campus)
+                    subject = clear_data(subject)
+
+                    # Check logic of entries before to save in database
+
+                    if date >= datetime.date.today() and begin < end:
+                        lesson = Lessons(nom=name, date=date, sujet=subject, promo=promo, begin=begin, campus=campus,
+                                         end=end, salle=room)
+                        lesson.save()
+
+                        # Save current user as teacher for the lesson
+                        group = Groups(profileID=profile, lessonID=lesson, teacher=True)
+                        group.save()
+
+                        # result is the message to display after the completion of the form good or error
+                        context['result'] = "Ce cours a bien été enregistré"
+                    else:
+                        context['result'] = "Veuillez entrer des informations cohérentes"
+                except:
+                    print("ERROR : bad form")
+            else:
+                try:
+                    idlesson = request.POST['id']
+                    teacher = Groups.objects.get(lessonID=idlesson, teacher=True)
+                    if teacher.profileID_id == profile.id:
+                        Lessons.objects.get(id=idlesson).delete()
+                        answer = {'reponse': 'le cours a bien été supprimé'}
+                    else:
+                        try:
+                            Groups.objects.get(lessonID=idlesson, profileID=profile).delete()
+                            answer = {'reponse': 'La désinscription a été prise en compte.'}
+                        except:
+                            answer = {'reponse': 'Vous n\'êtes pas inscrit à ce cours.'}
+                    return HttpResponse(json.dumps(answer))
+                except:
+                    answer = {'reponse': 'Lesson inconue.'}
+                    print("ERROR : Modify or delete unknown lesson")
+                    return HttpResponse(json.dumps(answer))
+
         all_group = Groups.objects.filter(profileID=profile)
         teacher_lesson = []
         follow_lesson = []
@@ -109,53 +166,6 @@ def home(request):
         # Add lesson in the context
         context['teacher_lesson'] = teacher_lesson
         context['follow_lesson'] = follow_lesson
-
-        # Check the form
-        if request.method == 'POST':
-            form = LessonForm(request.POST)
-            if form.is_valid():
-                name = form.cleaned_data['name']
-                room = form.cleaned_data['room']
-                date = form.cleaned_data['date']
-                begin = form.cleaned_data['begin']
-                end = form.cleaned_data['end']
-                promo = form.cleaned_data['promo']
-                campus = form.cleaned_data['campus']
-                subject = form.cleaned_data['subject']
-
-                # clear xss
-                name = clear_data(name)
-                room = clear_data(room)
-                promo = clear_data(promo)
-                campus = clear_data(campus)
-                subject = clear_data(subject)
-
-                # Check logic of entries before to save in database
-                if date >= datetime.date.today() and begin < end:
-                    lesson = Lessons(nom=name, date=date, sujet=subject, promo=promo, begin=begin, campus=campus,
-                                     end=end, salle=room)
-                    lesson.save()
-
-                    # Save current user as teacher for the lesson
-                    group = Groups(profileID=profile, lessonID=lesson, teacher=True)
-                    group.save()
-
-                    # result is the message to display after the completion of the form good or error
-                    context['result'] = "Ce cours a bien été enregistré"
-                else:
-                    context['result'] = "Veuillez entrer des informations cohérentes"
-
-            try:
-                idlesson = request.POST['id']
-                teacher = Groups.objects.get(lessonID=idlesson, teacher=True)
-                if teacher.profileID_id == profile.id:
-                    Lessons.objects.get(id=idlesson).delete()
-                    answer = {'reponse': 'le cours a bien été supprimé'}
-                else:
-                    answer = {'reponse': 'Merci de ne pas essayer de supprimer les cours des autres.'}
-                return HttpResponse(json.dumps(answer))
-            except:
-                print("ERROR : Modify or delete unknown lesson")
         return render(request, 'home.html', context)
     else:
         return redirect('/')

@@ -13,10 +13,12 @@
 {% endblock %}
 {% block content %}
     <div class="jumbotron text-center">
-        <h1 class="display-4">Bienvenue !</h1>
+        <h1 class="display-4">Bienvenue</h1>
         <p class="lead">Sur cette plateforme vous pourrez gérer vos séances de tutorat et avoir des bonnes notes, merci
             ne nous remerciez pas !</p>
-        <button id="myBtn">Ajouter un cours</button>
+		<button id="myBtn" type="button">
+  			<span>Ajouter un cours</span>
+		</button>
     </div>
     <div class="contenant">
         <div class="droite">
@@ -25,12 +27,16 @@
             {% for cour in follow_lesson %}
                 <div class="card bg-info">
                     <div class="card-body">
+						<div onclick="deleteLesson({'id':'{{ cour.lessonID_id }}', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})" class="div_close">
+							<span class="close_cours">&times;</span>
+						</div>
                         <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
-                        <p class="card-text">Tuteur : {{  cour.profileID.user.username }}</p>
-                        <p class="card-text">Date : {{ cour.lessonID.date }}</p>
-                        <p class="card-text">Heure début : {{ cour.lessonID.begin }}</p>
-                        <p class="card-text">Heure fin : {{ cour.lessonID.end }}</p>
-                        <p class="card-text">Salle : {{ cour.lessonID.salle }}</p>
+                        <p class="card-text"><b>Tuteur :</b> {{  cour.profileID.user.username }}</p>
+                        <p class="card-text"><b>Date :</b> {{ cour.lessonID.date }}</p>
+                        <p class="card-text"><b>Heure début :</b> {{ cour.lessonID.begin }}</p>
+                        <p class="card-text"><b>Heure fin :</b> {{ cour.lessonID.end }}</p>
+                        <p class="card-text"><b>Salle : </b>{{ cour.lessonID.salle }}</p>
+                        <p class="card-text"><b>Description :</b> {{ cour.lessonID.sujet }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -43,15 +49,15 @@
                 <div class="card bg-danger">
                     <div class="card-body">
 						<div onclick="deleteLesson({'id':'{{ cour.lessonID_id }}', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})" class="div_close">
-							<span class="close cours">&times;</span>
+							<span class="close_cours">&times;</span>
 						</div>
                         <h4 class="card-title">{{ cour.lessonID.nom }}</h4>
-                        <p class="card-text">Tuteur : {{ cour.profileID.user.username }}</p>
-                        <p class="card-text">Date : {{ cour.lessonID.date }}</p>
-                        <p class="card-text">Heure début : {{ cour.lessonID.begin }}</p>
-                        <p class="card-text">Heure fin : {{ cour.lessonID.end }}</p>
-                        <p class="card-text">Salle : {{ cour.lessonID.salle }}</p>
-                        <p class="card-text">Description : {{ cour.lessonID.sujet }}</p>
+                        <p class="card-text"><b>Tuteur :</b> {{ cour.profileID.user.username }}</p>
+                        <p class="card-text"><b>Date :</b> {{ cour.lessonID.date }}</p>
+                        <p class="card-text"><b>Heure début :</b> {{ cour.lessonID.begin }}</p>
+                        <p class="card-text"><b>Heure fin :</b> {{ cour.lessonID.end }}</p>
+                        <p class="card-text"><b>Salle :</b> {{ cour.lessonID.salle }}</p>
+                        <p class="card-text"><b>Description :</b> {{ cour.lessonID.sujet }}</p>
                     </div>
 					
 				</div>
@@ -69,10 +75,9 @@
                     <div class="container">
                         <div class="signup-content">
                             <form action="#" method="post" id="signup-form" class="signup-form">
-                                {% csrf_token %}
+                                 {% csrf_token %}
                                 <h2 class="form-title">Création d'un cours</h2>
                                 <h3>Vous serez responsable de ce cours !</h3>
-
                                 <div class="form-group flex">
                                     {{ lessonform.name }}
                                     {{ lessonform.room }}
@@ -82,7 +87,7 @@
                                         {{ lessonform.date }}
                                     </div>
                                 </div>
-                                <div class="form-group flex">
+                                <div class="form-group flex" id="ze">
                                     <div class="classe_select">
                                         {{ lessonform.begin }}
                                     </div>
@@ -120,10 +125,14 @@
         // Get the modal Add
         var modal = document.getElementById("myModal");
         var btn = document.getElementById("myBtn");
+        var submit_btn = document.getElementById("submit")
         var span = document.getElementsByClassName("close")[0];
         btn.onclick = function () {
             modal.style.display = "block";
         }
+        // submit_btn.onclick = function () {
+        //    refreshhhhhh();
+        //}
         span.onclick = function () {
             modal.style.display = "none";
         }
@@ -131,7 +140,11 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+			 if (event.target == modal_help) {
+                    modal_help.style.display = "none";
+                }
         }
+		
     </script>
 
 {% endblock %}

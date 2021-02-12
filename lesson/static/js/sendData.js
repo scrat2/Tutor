@@ -26,7 +26,9 @@ function subscribe(data) {
     };
     // Finalement, envoyez les données.
     XHR.send(urlEncodedData);
+    XHR.onloadend = function () {
 	location.reload();
+    };
 }
 
 function deleteLesson(data) {
@@ -58,6 +60,9 @@ function deleteLesson(data) {
         };
         // Finalement, envoyez les données.
         XHR.send(urlEncodedData);
-		location.reload();
+	XHR.onloadend = function () {
+	    window.location.href = "http://tutor.sylvainboussignac.ovh/";
+	};
     }
 }
+

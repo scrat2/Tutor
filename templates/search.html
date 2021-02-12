@@ -56,7 +56,7 @@
                     today: 'Aujourd\'hui',
                     month: 'Grille',
                     week: 'Semaine',
-                    day: 'jour',
+                    day: 'Jour',
                     list: 'Liste'
                 },
                 header: {
@@ -78,58 +78,6 @@
                 },
                 selectable: true,
                 selectHelper: true,
-                select: function (start, end, allDay) {
-                    /*     var title = prompt("Enter Event Title");
-                    if(title)
-                    {
-                    var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                    $.ajax({
-                    url:"insert.php",
-                    type:"POST",
-                    data:{title:title, start:start, end:end},
-                    success:function()
-                    {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Added Successfully");
-                    }
-                    })
-                    }*/
-                },
-
-                eventResize: function (event) {
-                    /*     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                    url:"update.php",
-                    type:"POST",
-                    data:{title:title, start:start, end:end, id:id},
-                    success:function(){
-                    calendar.fullCalendar('refetchEvents');
-                    alert('Event Update');
-                    }
-                    })*/
-                },
-
-                eventDrop: function (event) {
-                    /*     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                    url:"update.php",
-                    type:"POST",
-                    data:{title:title, start:start, end:end, id:id},
-                    success:function()
-                    {
-                    calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated");
-                    }
-                    });*/
-                },
-
                 eventClick: function (event) {
                     var modal = document.getElementById("myModal");
                     var btn = document.getElementById("myBtn");
@@ -142,12 +90,12 @@
                     var salle =event.salle;
                     var description = event.description;
                     content.innerHTML = "<span class=\"close\">&times;</span>" +
-                        "<h4>"+title+"</h4>" +
-                        "<p> Tuteur : " + tuteur + "</p>" +
-                        "<p> Nombre de particiapant : " + nbParticipant + "</p>" +
-                        "<p> Salle : " + salle + "</p>" +
-                        "<p> Description : " + description + "</p>" +
-                        "<button onclick=\"subscribe({'id' : '" + event.id + "', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})\"> s'inscrire </button>";
+                        "<h2><b>"+title+"</b></h2>" +
+                        "<p> <b>Tuteur :</b> " + tuteur + "</p>" +
+                        "<p> <b>Participants : </b>" + nbParticipant + "</p>" +
+                        "<p> <b>Salle : </b>" + salle + "</p>" +
+                        "<p> <b>Description :</b> " + description + "</p>" +
+						"<button type='submit' class='form-submit'type='button' onclick=\"subscribe({'id' : '" + event.id + "', 'csrfmiddlewaretoken' : '{{ csrf_token }}'})\">Participer</button>";
                     // When the user clicks on <span> (x), close the modal
                     var span = document.getElementsByClassName("close")[0];
                     span.onclick = function () {

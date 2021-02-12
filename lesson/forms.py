@@ -20,7 +20,7 @@ class TimeInput(forms.TimeInput):
 class ConnexionForm(forms.Form):
     username = forms.CharField(
         label='Username',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Identifiant'}),
         max_length=30,
         required=True
     )
@@ -30,7 +30,7 @@ class ConnexionForm(forms.Form):
         max_length=50,
         min_length=8,
         required=True,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Mot de passe'})
     )
 
 

@@ -6,6 +6,69 @@
 .contenant{
 	display: flex;	
 }
+.jumbotron{
+	margin-bottom: 45px;
+}
+#myBtn {
+  font-family: 'Hind Guntur', sans-serif;
+  font-size: 15px;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: 0.025em;
+  background: #333;
+  padding: 18px 0 18px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 2px;
+  min-width: 150px;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+	position: absolute;
+	margin-top: 2%;
+}
+
+#myBtn span {
+  display: block;
+  position: relative;
+  z-index: 10;
+}
+
+#myBtn:after,
+#myBtn:before {
+  padding: 18px 0 35px;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(-100% - 30px);
+  height: calc(100% - 29px);
+  width: calc(100% + 20px);
+  color: #fff;
+  border-radius: 2px;
+  transform: skew(-25deg);
+}
+
+#myBtn:after {
+  background: #fff;
+  transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+#myBtn:before {
+  background: #009bc2;
+  z-index: 5;
+  transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+#myBtn:hover:after {
+  left: calc(0% - 10px);
+  transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+#myBtn:hover:before {
+  left: calc(0% - 10px);
+  transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+}
 
 /* Modal */
 .modal {
@@ -45,64 +108,7 @@
   text-decoration: none;
   cursor: pointer;
 }
-/* Modal */
-.modal_help {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 5; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content */
-.modal-content_help {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 40%;
-}
-
-/* The Close Button */
-.close_help {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close_help:hover,
-.close_help:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.main_help{
-	margin-top: 52px;
-    padding-bottom: 3%;
-}
-
-.container_help {
-  width: 660px;
-  position: relative;
-  margin: 0 auto; 
-}
-.signup-content_help {
-  background: #fff; 
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -o-border-radius: 10px;
-  -ms-border-radius: 10px;
-	border-radius: 10px;
-  padding: 50px 85px; 
-}
 .container_card{
 	width: 660px;
 	display: block;
@@ -114,7 +120,6 @@
     padding: 20px;
     border: 1px solid #888;
     width: 58%;
-    border: 1px solid #999;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: 6px;
     -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
@@ -128,20 +133,13 @@
 }
 .card-title{
 	margin-top: 10%;
-}
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    margin-left: 90%;
+	text-transform: capitalize;
+	font-weight: bold;
 }
 .div_close{
     right: 26%;
     top: 6%;
 }
-
-
 
 /* @extend display-flex; */
 display-flex, .display-flex, .display-flex-center {
@@ -159,6 +157,7 @@ list-type-ulli {
 .main{
 	margin-top: 52px;
     padding-bottom: 3%;
+	width: auto;
 }
 .flex {
   display: flex;
@@ -204,6 +203,10 @@ h2 {
 	border-radius: 10px;
   padding: 50px 85px; 
 }
+.signup-form{
+	text-align: center;
+}
+
 
 .form-input {
 	  width: 100%;
@@ -217,10 +220,10 @@ h2 {
 	  box-sizing: border-box;
 	  font-size: 14px;
 	  font-weight: 500;
-	  color: #22222282;
-	margin: 3px 3px;
+	  color: #000000;
+		margin: 3px 3px;
 }
-#id_date,#id_begin,#id_end,#id_promo, #id_campus{
+.form-group input, #id_date,#id_begin,#id_end,#id_promo, #id_campus{
 	width: 100%;
     border: 1px solid #ebebeb;
     -moz-border-radius: 5px;
@@ -232,66 +235,28 @@ h2 {
     box-sizing: border-box;
     font-size: 14px;
     font-weight: 500;
-    color: #22222282;
-}
-.classe_select{
-	width: -webkit-fill-available;
-	margin: 3px 3px;
+    color: #000000;
+	-webkit-appearance: none;
+	-webkit-background-color: white;
 }
 
-.form-input::-webkit-input-placeholder {
-  color: #999;
+::placeholder {
+  color: #000000;
 }
-.form-input::-moz-placeholder {
-  color: #999; 
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #000000;
 }
-.form-input:-ms-input-placeholder {
-  color: #999; 
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: #000000;
 }
-.form-input:-moz-placeholder {
-  color: #999; 
+.classe_select{
+	width: 100%;
+	margin: 3px 3px;
 }
-.form-input::-webkit-input-placeholder {
-  font-weight: 500; 
-}
-.form-input::-moz-placeholder {
-  font-weight: 500; 
-}
-.form-input:-ms-input-placeholder {
-  font-weight: 500; 
-}
-.form-input:-moz-placeholder {
-  font-weight: 500; 
-}
-.form-input:focus {
-  border: 1px solid transparent;
-  -webkit-border-image-source: -webkit-linear-gradient(to right, #9face6, #74ebd5);
-  -moz-border-image-source: -moz-linear-gradient(to right, #9face6, #74ebd5);
-  -o-border-image-source: -o-linear-gradient(to right, #9face6, #74ebd5);
-  border-image-source: linear-gradient(to right, #9face6, #74ebd5);
-  -webkit-border-image-slice: 1;
-  border-image-slice: 1;
-  
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-	border-radius: 5px;
-  background-origin: border-box;
-  background-clip: content-box, border-box; 
-  color: #222 ;
-}
-.form-input:focus::-webkit-input-placeholder {
-  color: #222; 
-}
-.form-input:focus::-moz-placeholder {
-  color: #222;
-}
-.form-input:focus:-ms-input-placeholder {
-  color: #222; 
-}
-.form-input:focus:-moz-placeholder {
-  color: #222; 
+#ze{
+	width: 100%;
 }
 
 .form-submit {
@@ -313,31 +278,50 @@ h2 {
   background: -o-linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
   background: linear-gradient(to bottom right, #75b5c5 0%, #009bc2 100%);
 }
+@media screen and (max-width: 1800px) {
+	.modal-content_help{
+		width: 90%;
+	}
+}
+@media screen and (max-width: 1280px) {
+  
+   .contenant{
+		display: block;
+	}
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
 
 @media screen and (max-width: 768px) {
   .container, .container_help {
-    max-width: 100%; 
+    	max-width: 100%; 
+	    margin: 2% 0 8% 0;
   } 
+	#id_begin{
+		width: 100%;
+	}
+	button{
+		margin-top: 4%;
+	}
 	body {
 		overflow: inherit;
 	}
 	.flex {
     	display: inherit;
 	}
-	.contenant{
-		display: block;
-	}
+	
 	.main, .main_help{
 		width: auto;
 	}
-	.modal-content{
-		width: 90%;
-	}
+
 	.signup-content, .signup-content_help {
 		padding: inherit;
 	}
-	.flex {
-    	display: inherit;
+	#myBtn{
+		margin-top: 6%;
 	}
 }
 
